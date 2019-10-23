@@ -5,6 +5,7 @@ import com.sell.view.main.panel.order.AddOderPanel;
 import com.sell.view.main.panel.user.AddUserPanel;
 import com.sell.view.main.panel.user.DeleteUsrePanel;
 import org.hibernate.criterion.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
@@ -145,7 +146,7 @@ public class mainFrame extends JFrame {
         panel.add(panel_8, "name_8513663372100");
         panel.add(panel_9, "name_8513678796700");
         panel.add(panel_10, "name_8513696449900");*/
-        panel.add(new AddOderPanel().getPanel());
+        panel.add(AddOderPanel.getPanel());
 
         JLabel lblNewLabel = new JLabel(new ImageIcon("img/a2.jpg"));
         lblNewLabel.setText("");

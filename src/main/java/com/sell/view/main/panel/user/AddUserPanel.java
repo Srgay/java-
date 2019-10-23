@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AddUserPanel  {
-    public static JPanel getPanel(){
+    public JPanel getPanel(){
         JPanel panel_11 = new JPanel();
         panel_11.setOpaque(false);
 

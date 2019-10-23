@@ -1,30 +1,45 @@
 package com.sell.view.main.panel.order;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 public class AddOderPanel {
-    private JLabel nameLabel, passwordLabel;
-    private JTextField nameField;
-    private JPasswordField passwordField;
-    private JButton loginButton, registButton;
+    private static JLabel nameLabel, passwordLabel;
+    private  static JTextField nameField;
+    private  static JPasswordField passwordField;
+    private  static JButton Button, registButton;
+    private static  JPanel contentPane;
+    private  static JTextField textField;
+    private  static JTextField textField_1;
+    private  static JTextField textField_2;
+    private static  JTextField textField_3;
+    public static JPanel getPanel() {
 
-    public JPanel getPanel() {
         JPanel panel = new JPanel();
-        nameLabel = new JLabel("用户名 :");
-        nameField = new JTextField(24);
-        passwordLabel = new JLabel("  密码 :");
-        passwordField = new JPasswordField(18);
-        loginButton = new JButton("登录");
-        registButton = new JButton("注册");
-
-        //内容窗格默认布局管理器是FlowLayout
         panel.setLayout(null);
-        panel.add(nameLabel).setBounds(40, 40, 80, 30);
-        panel.add(nameField).setBounds(100, 40, 80, 30);
-        panel.add(passwordLabel).setBounds(40, 100, 80, 30);
-        panel.add(passwordField).setBounds(100, 100, 80, 30);
-        panel.add(loginButton).setBounds(40, 160, 60, 25);
-        panel.add(registButton).setBounds(120, 160, 60, 25);
+
+        JLabel lblNewLabel = new JLabel("属性一");
+        JLabel label = new JLabel("属性二");
+
+        textField = new JTextField();
+        textField.setColumns(10);
+
+        textField_1 = new JTextField();
+        textField_1.setColumns(10);
+
+        Button=new JButton();
+
+        panel.add(textField).setBounds(40, 40, 80, 30);
+        panel.add(textField_1).setBounds(100, 40, 80, 30);
+        panel.add(Button).setBounds(40, 160, 60, 25);
+
 
         return panel;
     }

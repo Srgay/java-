@@ -3,7 +3,7 @@ package com.sell.view.main.panel.user;
 import javax.swing.*;
 
 public class DeleteUsrePanel {
-    public static JPanel getPanel() {
+    public  JPanel getPanel() {
         JPanel panel_2 = new JPanel();
 
         JButton button = new JButton("New button");
