@@ -3,6 +3,7 @@ package com.sell.view;
 
 import com.sell.view.main.panel.user.AddUserPanel;
 import com.sell.view.main.panel.user.DeleteUsrePanel;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-@Controller
+@Component
 public class mainFrame extends JFrame {
 
     public mainFrame() {

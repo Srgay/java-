@@ -32,5 +32,14 @@ public class UserServiceImpl implements UserService {
 
         return user;
     }
+    public int regist(Buyer user) {
+
+        //user= buyerMapper.selectLogin(userName,passWord);
+        //user.setName(userName);
+        //user.setPassword(passWord);
+        int f = buyerMapper.insert(user);
+        System.out.println(f);
+        return f;
+    }
 
 }

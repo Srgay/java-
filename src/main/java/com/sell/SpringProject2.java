@@ -18,6 +18,9 @@ public class SpringProject2 implements CommandLineRunner {
     private Login login;
     @Autowired
     private RegistService registService;
+    @Autowired
+    private UserService userService;
+
     @Override
     public void run(String... args) throws Exception {
        /* try {
@@ -27,6 +30,7 @@ public class SpringProject2 implements CommandLineRunner {
         }
         ;*/
         System.out.println(registService);
+        System.out.println(userService);
         login.setSize(300, 300);
         login.setVisible(true);
 

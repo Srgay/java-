@@ -5,7 +5,7 @@ package com.sell.view;
 import com.sell.entity.Buyer;
 import com.sell.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,7 +16,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-@Controller
+@Component
 public class Login extends JFrame implements ActionListener {
     private JLabel nameLabel, passwordLabel;
     private JTextField nameField;
@@ -24,10 +24,11 @@ public class Login extends JFrame implements ActionListener {
     private JButton loginButton, registButton;
     @Autowired
     private UserService userService;
+    @Autowired
+    private Regist regist;
 
     public Login() {
         super();
-        System.out.println(userService);
         this.setTitle("用户登录");
         this.setVisible(true);
         this.setResizable(true);
@@ -79,6 +80,8 @@ public class Login extends JFrame implements ActionListener {
         if (userName.equals("") || passWord.equals("")) {
             JOptionPane.showMessageDialog(this, "请完善登录信息", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
+            System.out.println("login被shili ");
+            System.out.println(userService);
             Buyer user = userService.login(userName, passWord);
             if (user.getAge() != null) {
                 this.setVisible(false);
@@ -102,7 +105,6 @@ public class Login extends JFrame implements ActionListener {
     public void registButton_actionPerformed() {
 
         this.setVisible(false);
-        Regist regist = new Regist();
         regist.setSize(280, 560);
         regist.setVisible(true);
     }
