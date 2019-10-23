@@ -4,6 +4,7 @@ import com.sell.dao.BuyerMapper;
 import com.sell.entity.Buyer;
 import com.sell.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 
@@ -31,4 +32,5 @@ public class UserServiceImpl implements UserService {
 
         return user;
     }
+
 }

@@ -17,6 +17,16 @@ public class Buyer implements Serializable {
     private String phone;
 
     private String address;
+    public Buyer(){}
+    public Buyer(String id, String name, String password, Integer age, String sex, String phone, String address) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.age = age;
+        this.sex = sex;
+        this.phone = phone;
+        this.address = address;
+    }
 
     private static final long serialVersionUID = 1L;
 

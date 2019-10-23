@@ -1,6 +1,8 @@
 package com.sell;
 
 
+import com.sell.service.RegistService;
+import com.sell.service.UserService;
 import com.sell.view.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,7 +16,8 @@ import tk.mybatis.spring.annotation.MapperScan;
 public class SpringProject2 implements CommandLineRunner {
     @Autowired
     private Login login;
-
+    @Autowired
+    private RegistService registService;
     @Override
     public void run(String... args) throws Exception {
        /* try {
@@ -23,6 +26,7 @@ public class SpringProject2 implements CommandLineRunner {
             //TODO exception
         }
         ;*/
+        System.out.println(registService);
         login.setSize(300, 300);
         login.setVisible(true);
 

@@ -2,6 +2,9 @@ package com.sell.view;
 
 //模块功能：新用户注册
 
+import com.sell.entity.Buyer;
+import com.sell.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import javax.swing.*;
@@ -9,10 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 //import java.lang.Integer;
 @Controller
@@ -20,11 +19,13 @@ public class Regist extends JFrame implements ActionListener {
 	private JLabel idLabel,nameLabel,passwordLabel,ageLabel,sexLabel,phoneLabel,addressLabel;
 	private JTextField idField,nameField,passwordField,ageField,sexField,phoneField,addressField;
 	private JButton submitButton,resetButton;
+	@Autowired
+	private UserService userService;
   
     public Regist(){
 	    super();
 	    this.setTitle("新用户信息注册");
-		this.setVisible(true);
+		System.out.println(userService);
 		this.setResizable(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);//关闭界面时退出JVM虚拟机
 		addWindowListener(new WindowAdapter(){       //点击关闭界面的叉号时跳出询问窗口
@@ -93,39 +94,19 @@ public class Regist extends JFrame implements ActionListener {
 		String userSex=sexField.getText().trim();
 		String userPhone=phoneField.getText().trim();
 		String userAddress=addressField.getText().trim();
+		 Buyer buyer = new Buyer(userId,userName,passWord,Integer.valueOf(userAge),userSex,userPhone,userAddress);
 
-		String url = "jdbc:mysql://localhost:3306/dbase";
-		
-		Connection con=null;
-		ResultSet rs = null;
-		PreparedStatement ps = null;
-		
-		if(userId.equals("") ||userName.equals("") || passWord.equals("")||userAge.equals("")||userSex.equals("")||userPhone.equals("")||userAddress.equals("")){
+
+		 if(userId.equals("") ||userName.equals("") || passWord.equals("")||userAge.equals("")||userSex.equals("")||userPhone.equals("")||userAddress.equals("")){
 			JOptionPane.showMessageDialog(this, "请完善登录信息", "warning", JOptionPane.WARNING_MESSAGE);
 		}else{
-			 try{
-				  Class.forName("com.mysql.jdbc.Driver");
-				  con = DriverManager.getConnection(url, "root", "root");
-			      if(con == null){
-				      JOptionPane.showMessageDialog(this, "数据连接出错，请稍后重试", "warning", JOptionPane.WARNING_MESSAGE);
-				      con.close();
-			 }else{
-
-					String sql="insert into buyer(id, name, password, age, sex, phone, address) values(?, ?, ?, ?, ?, ?, ?)";
-					ps =  con.prepareStatement(sql);
-					ps.setString(1, userId);
-					ps.setString(2, userName);
-					ps.setString(3, passWord);
-					ps.setInt(4, Age);
-					ps.setString(5, userSex);
-					ps.setString(6, userPhone);
-					ps.setString(7, userAddress);
-					ps.executeUpdate();				
-					
-			 }}catch(Exception e){
-					e.printStackTrace();
-					JOptionPane.showMessageDialog(this, "数据连接出错，请稍后重试", "warning", JOptionPane.WARNING_MESSAGE);
-				}
+			 System.out.println(buyer);
+			 System.out.println(userService);
+			// userService.regist(buyer);
+			 int i=1;
+		 	if (i==1){
+				JOptionPane.showMessageDialog(this, "成功", "warning", JOptionPane.WARNING_MESSAGE);
+			}
 			}			
 		}
 	
