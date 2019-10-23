@@ -78,7 +78,7 @@ public class Login extends JFrame implements ActionListener {
 		if(userName.equals("") || passWord.equals("")){
 			JOptionPane.showMessageDialog(this, "请完善登录信息", "warning", JOptionPane.WARNING_MESSAGE);
 		}else{
-			Buyer user=userService.login("a001", "a001");;
+			Buyer user=userService.login(userName, passWord);;
 			if(user.getAge()!=null){
 						this.setVisible(false);
 					    Icon picture1=new ImageIcon("a2.JPG");
