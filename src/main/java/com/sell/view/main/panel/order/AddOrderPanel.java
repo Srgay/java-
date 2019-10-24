@@ -9,18 +9,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
-public class AddOderPanel {
-    private static JLabel nameLabel, passwordLabel;
-    private  static JTextField nameField;
-    private  static JPasswordField passwordField;
-    private  static JButton Button, registButton;
-    private static  JPanel contentPane;
-    private  static JTextField textField;
-    private  static JTextField textField_1;
-    private  static JTextField textField_2;
-    private static  JTextField textField_3;
-    public static JPanel getPanel() {
+@Component
+public class AddOrderPanel {
+    private  JLabel nameLabel, passwordLabel;
+    private   JTextField nameField;
+    private   JPasswordField passwordField;
+    private  JButton Button, registButton;
+    private  JPanel contentPane;
+    private   JTextField textField;
+    private   JTextField textField_1;
+    private  JTextField textField_2;
+    private  JTextField textField_3;
+    public  JPanel getPanel() {
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -39,7 +39,7 @@ public class AddOderPanel {
         panel.add(textField).setBounds(40, 40, 80, 30);
         panel.add(textField_1).setBounds(100, 40, 80, 30);
         panel.add(Button).setBounds(40, 160, 60, 25);
-
+        panel.setOpaque(true);
 
         return panel;
     }

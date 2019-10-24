@@ -78,7 +78,6 @@ public class Regist extends JFrame implements ActionListener {
 		this.add(resetButton).setBounds(120, 460, 60, 25);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setVisible(true);
 		
 		submitButton.addActionListener(this);
 		resetButton.addActionListener(this);		

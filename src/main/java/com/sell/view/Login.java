@@ -26,12 +26,12 @@ public class Login extends JFrame implements ActionListener {
     private UserService userService;
     @Autowired
     private Regist regist;
+    @Autowired
+    private MainFrame mainFrame;
 
     public Login() {
         super();
         this.setTitle("用户登录");
-        this.setVisible(true);
-        this.setResizable(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -44,7 +44,6 @@ public class Login extends JFrame implements ActionListener {
     }
 
     private void init() {
-
         nameLabel = new JLabel("用户名 :");
         nameField = new JTextField(24);
         passwordLabel = new JLabel("  密码 :");
@@ -62,7 +61,6 @@ public class Login extends JFrame implements ActionListener {
         this.add(registButton).setBounds(120, 160, 60, 25);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
 
         loginButton.addActionListener(this);
         registButton.addActionListener(this);
@@ -80,19 +78,13 @@ public class Login extends JFrame implements ActionListener {
         if (userName.equals("") || passWord.equals("")) {
             JOptionPane.showMessageDialog(this, "请完善登录信息", "warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            System.out.println("login被shili ");
-            System.out.println(userService);
             Buyer user = userService.login(userName, passWord);
             if (user.getAge() != null) {
                 this.setVisible(false);
-                Icon picture1 = new ImageIcon("a2.JPG");
-                JLabel logo = new JLabel();
-                logo.setIcon(picture1);
-                JFrame f = new mainFrame();
-                f.setSize(700, 300);
-                f.setTitle("鲜花销售管理信息系统");
-                f.add(logo);
-                f.show();
+                mainFrame.setTitle("鲜花销售管理信息系统");
+                mainFrame.setSize(1021, 600);
+                mainFrame.setLocationRelativeTo(null);
+                mainFrame.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "用户名或密码输入错误，请重新输入", "warning", JOptionPane.WARNING_MESSAGE);
                 nameField.setText("");

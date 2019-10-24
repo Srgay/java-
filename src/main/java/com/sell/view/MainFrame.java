@@ -1,7 +1,8 @@
 package com.sell.view;
 
 
-import com.sell.view.main.panel.order.AddOderPanel;
+import com.sell.view.main.actionPerformed.MainAction;
+import com.sell.view.main.panel.order.AddOrderPanel;
 import com.sell.view.main.panel.user.AddUserPanel;
 import com.sell.view.main.panel.user.DeleteUsrePanel;
 import org.hibernate.criterion.Order;
@@ -13,30 +14,39 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 @Component
-public class mainFrame extends JFrame {
+public class MainFrame extends JFrame implements ActionListener {
 
-    public mainFrame() {
+private JMenuItem menuItem_14;
+private JPanel panel;
+    @Autowired
+    private AddOrderPanel addOrderPanel;
+    @Autowired
+    private MainAction mainAction;
+    public MainFrame() {
         setIconImage(Toolkit.getDefaultToolkit().getImage("img/a2.jpg"));
-
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int n = JOptionPane.showConfirmDialog(null, "Are you sure closing this software?", "warning", JOptionPane.YES_NO_OPTION);
+                if (n == JOptionPane.YES_OPTION)
+                    System.exit(0);
+            }
+        });
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
 
         JMenu mnNewMenu = new JMenu("用户管理");
-        mnNewMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-
-            }
-        });
         menuBar.add(mnNewMenu);
 
         JMenuItem mntmNewMenuItem_1 = new JMenuItem("添加用户");
         mnNewMenu.add(mntmNewMenuItem_1);
 
-        JMenuItem menuItem_14 = new JMenuItem("删除用户");
+       menuItem_14 = new JMenuItem("删除用户");
         mnNewMenu.add(menuItem_14);
+        menuItem_14.addActionListener(this);
 
         JMenuItem mntmNewMenuItem_3 = new JMenuItem("修改用户");
         mnNewMenu.add(mntmNewMenuItem_3);
@@ -111,8 +121,8 @@ public class mainFrame extends JFrame {
         menu_1.add(menuItem_13);
         getContentPane().setLayout(null);
 
-        JPanel panel = new JPanel();
-        panel.setBounds(0, 0, 781, 440);
+        panel = new JPanel();
+        panel.setBounds(0, 0, 1024, 600);
         panel.setOpaque(false);
         getContentPane().add(panel);
 
@@ -146,15 +156,25 @@ public class mainFrame extends JFrame {
         panel.add(panel_8, "name_8513663372100");
         panel.add(panel_9, "name_8513678796700");
         panel.add(panel_10, "name_8513696449900");*/
-        panel.add(AddOderPanel.getPanel());
 
-        JLabel lblNewLabel = new JLabel(new ImageIcon("img/a2.jpg"));
+        JLabel lblNewLabel = new JLabel(new ImageIcon("img/a2.png"));
         lblNewLabel.setText("");
-        lblNewLabel.setBounds(0, 0, 865, 657);
+        lblNewLabel.setBounds(0, 0, 1024, 600);
         getContentPane().add(lblNewLabel);
     }
+
+
+
+
+    public void actionPerformed(ActionEvent e){
+       if(e.getSource() == menuItem_14){
+            mainAction.action(panel,addOrderPanel.getPanel());
+        }
+
+    }
+
     public static void main(String[] args) {
-        JFrame aFrame = new mainFrame();
+        JFrame aFrame = new MainFrame();
         aFrame.setSize(1021, 600);
         aFrame.setLocationRelativeTo(null);
         aFrame.setVisible(true);

@@ -1,9 +1,10 @@
 package com.sell;
 
 
-import com.sell.service.RegistService;
 import com.sell.service.UserService;
 import com.sell.view.Login;
+import com.sell.view.MainFrame;
+import com.sell.view.main.panel.order.AddOrderPanel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,10 +18,11 @@ public class SpringProject2 implements CommandLineRunner {
     @Autowired
     private Login login;
     @Autowired
-    private RegistService registService;
-    @Autowired
     private UserService userService;
-
+    @Autowired
+    private AddOrderPanel addOrderPanel;
+    @Autowired
+    private MainFrame mainFrame;
     @Override
     public void run(String... args) throws Exception {
        /* try {
@@ -29,10 +31,14 @@ public class SpringProject2 implements CommandLineRunner {
             //TODO exception
         }
         ;*/
-        System.out.println(registService);
-        System.out.println(userService);
-        login.setSize(300, 300);
-        login.setVisible(true);
+
+       // login.setSize(300, 300);
+        //login.setLocationByPlatform(true);
+        //login.setVisible(true);
+        mainFrame.setTitle("鲜花销售管理信息系统");
+        mainFrame.setSize(1021, 600);
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setVisible(true);
 
 
     }
