@@ -5,11 +5,14 @@ import com.sell.service.UserService;
 import com.sell.view.Login;
 import com.sell.view.MainFrame;
 import com.sell.view.main.panel.order.AddOrderPanel;
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import tk.mybatis.spring.annotation.MapperScan;
+
+import javax.swing.*;
 
 
 @SpringBootApplication
@@ -25,12 +28,15 @@ public class SpringProject2 implements CommandLineRunner {
     private MainFrame mainFrame;
     @Override
     public void run(String... args) throws Exception {
-       /* try {
+        try {
+            UIManager.put("ToolBar.isPaintPlainBackground", Boolean.TRUE);
+            UIManager.put("RootPane.setupButtonVisible", false);
+            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.osLookAndFeelDecorated;
             org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-        } catch (Exception e) {
+
+        } catch(Exception e) { //TODO exception }  catch (Exception e) {
             //TODO exception
         }
-        ;*/
 
        // login.setSize(300, 300);
         //login.setLocationByPlatform(true);

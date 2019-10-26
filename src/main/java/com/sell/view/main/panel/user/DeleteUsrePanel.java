@@ -1,7 +1,9 @@
 package com.sell.view.main.panel.user;
 
-import javax.swing.*;
+import org.springframework.stereotype.Component;
 
+import javax.swing.*;
+@Component
 public class DeleteUsrePanel {
     public  JPanel getPanel() {
         JPanel panel_2 = new JPanel();

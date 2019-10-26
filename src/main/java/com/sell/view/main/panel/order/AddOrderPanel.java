@@ -41,6 +41,8 @@ public class AddOrderPanel {
         panel.add(Button).setBounds(40, 160, 60, 25);
         panel.setOpaque(true);
 
+
+
         return panel;
     }
 }

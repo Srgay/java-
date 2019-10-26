@@ -1,10 +1,12 @@
 package com.sell.view.main.panel.user;
 
+import org.springframework.stereotype.Component;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+@Component
 public class AddUserPanel  {
     public JPanel getPanel(){
         JPanel panel_11 = new JPanel();
@@ -25,6 +27,7 @@ public class AddUserPanel  {
         JButton btnNewButton = new JButton("New button");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
             }
         });
         GroupLayout gl_panel_11 = new GroupLayout(panel_11);

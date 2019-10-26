@@ -7,8 +7,9 @@ import javax.swing.*;
 @Component
 public class MainAction {
     public void action(JPanel panel,JPanel panelto) {
-        System.out.println("删除用户面板添加");
+        System.out.println("用户面板添加");
         System.out.println(panelto);
+        panel.removeAll();
         panel.add(panelto);
         panel.validate();
         panel.repaint();
