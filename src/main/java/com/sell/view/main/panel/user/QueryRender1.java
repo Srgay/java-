@@ -24,7 +24,7 @@ public class QueryRender1  implements TableCellRenderer {
         this.button = new JButton();
 
         // 设置按钮的大小及位置。
-        this.button.setBounds(0, 0, 150, 15);
+        this.button.setBounds(0, 0, 150, 25);
 
         // 在渲染器里边添加按钮的事件是不会触发的
         // this.button.addActionListener(new ActionListener()

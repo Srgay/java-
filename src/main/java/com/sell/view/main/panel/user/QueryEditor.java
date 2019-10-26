@@ -52,7 +52,7 @@ public class QueryEditor extends DefaultCellEditor implements ActionListener {
         this.button = new JButton();
 
         // 设置按钮的大小及位置。
-        this.button.setBounds(0, 0, 150, 15);
+        this.button.setBounds(0, 0, 150, 25);
         this.button.addActionListener(this);
 
 
@@ -96,11 +96,9 @@ public class QueryEditor extends DefaultCellEditor implements ActionListener {
     private void action() {
         // 触发取消编辑的事件，不会调用tableModel的setValue方法。
         //MyButtonEditor.this.fireEditingCanceled();
-        System.out.println(cartTable.getSelectedRow());
         Buyer user = getObject(cartTable.getSelectedRow());
-        System.out.println(user.toString());
+        System.out.println("修改"+user.toString());
         userService.update(user);
-                System.out.println(cartTable.getValueAt(cartTable.getSelectedRow(), 0));
         // 这里可以做其它操作。
         // 可以将table传入，通过getSelectedRow,getSelectColumn方法获取到当前选择的行和列及其它操作等。
 

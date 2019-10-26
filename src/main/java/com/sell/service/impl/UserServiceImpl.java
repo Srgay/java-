@@ -69,5 +69,14 @@ public class UserServiceImpl implements UserService {
             return i;
         }
     }
+    public int delete(Buyer user) {
+        int i=0;
+        try {
+            i=buyerMapper.deleteByPrimaryKey(user);
+            return i;
+        }catch (Exception e){
+            return i;
+        }
+    }
 
 }

@@ -1,6 +1,11 @@
 package com.sell.view.main.panel.user;
 
+import com.sell.entity.Buyer;
+import com.sell.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +16,10 @@ public class QueryEditor1 extends DefaultCellEditor implements ActionListener {
      */
     private static final long serialVersionUID = -6546334664166791132L;
 
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private QueryUserPanel queryUserPanel;
     private JPanel panel;
 
     private JButton button;
@@ -36,7 +45,7 @@ public class QueryEditor1 extends DefaultCellEditor implements ActionListener {
         this.button = new JButton();
 
         // 设置按钮的大小及位置。
-        this.button.setBounds(0, 0, 150, 15);
+        this.button.setBounds(0, 0, 150, 25);
         this.button.addActionListener(this);
 
 
@@ -83,11 +92,24 @@ public class QueryEditor1 extends DefaultCellEditor implements ActionListener {
     private void action() {
         // 触发取消编辑的事件，不会调用tableModel的setValue方法。
         //MyButtonEditor.this.fireEditingCanceled();
-        System.out.println(cartTable.getSelectedRow());
-        System.out.println(cartTable.getValueAt(cartTable.getSelectedRow(),cartTable.getSelectedColumn()-2));
-        // 这里可以做其它操作。
-        // 可以将table传入，通过getSelectedRow,getSelectColumn方法获取到当前选择的行和列及其它操作等。
+        Buyer user = getObject(cartTable.getSelectedRow());
+        System.out.println("删除"+user.toString());
+        if(userService.delete(user)==1){
+            DefaultTableModel dtm = (DefaultTableModel) cartTable.getModel();
+            dtm.setRowCount(0);
+            //dtm.removeRow(cartTable.getSelectedRow());
+            queryUserPanel.filljtable();
+        }
 
+    }
+
+    public Buyer getObject(int row) {
+        String[] val = new String[7];
+        for (int i = 0; i < 7; i++) {
+            val[i] = (String) cartTable.getValueAt(row, i);
+        }
+        Buyer user = new Buyer(val[0], val[1], val[2], Integer.valueOf(val[3]), val[4], val[5], val[6]);
+        return user;
     }
     public void settable(JTable table){
         this.cartTable=table;

@@ -11,4 +11,5 @@ public interface UserService {
     public List<Buyer> query(Buyer user);
     public List<Buyer> queryAll() ;
     public int update(Buyer user);
+    public int delete(Buyer user);
 }
