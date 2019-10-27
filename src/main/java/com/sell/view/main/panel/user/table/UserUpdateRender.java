@@ -1,4 +1,4 @@
-package com.sell.view.main.panel.user;
+package com.sell.view.main.panel.user.table;
 
 import java.awt.Component;
 
@@ -7,13 +7,13 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 @org.springframework.stereotype.Component
-public class QueryRender implements TableCellRenderer
+public class UserUpdateRender implements TableCellRenderer
 {
     private JPanel panel;
 
     private JButton button;
 
-    public QueryRender()
+    public UserUpdateRender()
     {
         this.initButton();
 

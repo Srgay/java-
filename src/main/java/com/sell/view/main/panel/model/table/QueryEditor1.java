@@ -1,7 +1,8 @@
-package com.sell.view.main.panel.user;
+package com.sell.view.main.panel.model.table;
 
 import com.sell.entity.Buyer;
 import com.sell.service.UserService;
+import com.sell.view.main.panel.model.QueryUserPanel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 @org.springframework.stereotype.Component
 public class QueryEditor1 extends DefaultCellEditor implements ActionListener {
     /**

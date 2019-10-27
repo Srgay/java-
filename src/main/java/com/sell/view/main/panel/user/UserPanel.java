@@ -3,6 +3,10 @@ package com.sell.view.main.panel.user;
 import com.sell.entity.Buyer;
 import com.sell.service.UserService;
 import com.sell.util.otov;
+import com.sell.view.main.panel.user.table.UserDeleteEditor;
+import com.sell.view.main.panel.user.table.UserDeleteRender;
+import com.sell.view.main.panel.user.table.UserUpdateEditor;
+import com.sell.view.main.panel.user.table.UserUpdateRender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,102 +19,43 @@ import java.util.List;
 import java.util.Vector;
 
 @Component
-public class QueryUserPanel {
+public class UserPanel {
 
+    private JTable cartTable;
+    private JButton jb_add;
+    private JTextField textField,textField_1,textField_2,textField_3,textField_4,textField_5;
+    private  JPanel panel_11;
     @Autowired
     private UserService userService;
     @Autowired
-    private QueryEditor queryEditor;
+    private UserUpdateEditor userUpdateEditor;
     @Autowired
-    private QueryRender queryRender;
+    private UserUpdateRender userUpdateRender;
     @Autowired
-    private QueryEditor1 queryEditor1;
+    private UserDeleteEditor userDeleteEditor;
     @Autowired
-    private QueryRender1 queryRender1;
+    private UserDeleteRender userDeleteRender;
 
     public JPanel getPanel() {
-        JPanel panel_11 = new JPanel();
+        panel_11 = new JPanel();
         cartTable = new javax.swing.JTable();
         jb_add = new javax.swing.JButton();
-        totalMoneyTxt = new javax.swing.JTextField();
-        totalNumTxt = new javax.swing.JTextField();
-        goodsTable = new javax.swing.JTable();
 
+        //主界面
         panel_11.setLayout(null);
-        initjtable();
-        panel_11.add( new JScrollPane(cartTable)).setBounds(102, 100, 800, 300);
-
-
-
-        jb_add = new JButton("查询");
-        jb_add.setBounds(560+102, 25+50, 66, 21);
-        panel_11.add(jb_add);
-
-        textField = new JTextField();
-        textField.setBounds(0+112, 25+50, 66, 21);
-        panel_11.add(textField);
-        textField.setColumns(10);
-        JLabel lblNewLabel = new JLabel("name");
-        lblNewLabel.setBounds(0+112, 50, 66, 21);
-        panel_11.add(lblNewLabel);
-
-        textField_1 = new JTextField();
-        textField_1.setColumns(10);
-        textField_1.setBounds(90+112, 25+50, 66, 21);
-        panel_11.add(textField_1);
-        JLabel lblNewLabel1 = new JLabel("password");
-        lblNewLabel1.setBounds(90+112, 50, 66, 21);
-        panel_11.add(lblNewLabel1);
-
-        textField_2 = new JTextField();
-        textField_2.setColumns(10);
-        textField_2.setBounds(180+112, 25+50, 66, 21);
-        panel_11.add(textField_2);
-        JLabel lblNewLabel2 = new JLabel("age");
-        lblNewLabel2.setBounds(180+112, 50, 66, 21);
-        panel_11.add(lblNewLabel2);
-
-        textField_3 = new JTextField();
-        textField_3.setColumns(10);
-        textField_3.setBounds(270+112, 25+50, 66, 21);
-        panel_11.add(textField_3);
-        JLabel lblNewLabel3 = new JLabel("sex");
-        lblNewLabel3.setBounds(270+112, 50, 66, 21);
-        panel_11.add(lblNewLabel3);
-
-        textField_4 = new JTextField();
-        textField_4.setColumns(10);
-        textField_4.setBounds(360+112, 25+50, 66, 21);
-        panel_11.add(textField_4);
-        JLabel lblNewLabel4 = new JLabel("phone");
-        lblNewLabel4.setBounds(360+112, 50, 66, 21);
-        panel_11.add(lblNewLabel4);
-
-        textField_5 = new JTextField();
-        textField_5.setColumns(10);
-        textField_5.setBounds(450+112, 25+50, 66, 21);
-        panel_11.add(textField_5);
-        JLabel lblNewLabel5 = new JLabel("address");
-        lblNewLabel5.setBounds(450+112, 50, 66, 21);
-        panel_11.add(lblNewLabel5);
-
-        jb_add.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                DefaultTableModel dtm = (DefaultTableModel) cartTable.getModel();
-                //清空之前显示
-                dtm.setRowCount(0);
-
-                filljtable();
-                System.out.println("重绘");
-            }
-        });
         panel_11.setOpaque(true);
-        panel_11.add(jb_add);
+
+        //表格显示子模块
+        initjtable();
+
+        //查询子模块
+        querypanel();
+
 
         return panel_11;
     }
 
-    private void initjtable(){
+    public void initjtable(){
         String[] res1;
         String[][] res;
         List l = userService.queryAll();
@@ -165,13 +110,14 @@ public class QueryUserPanel {
             }
 
         });
-        queryEditor.settable(cartTable);
-        queryEditor1.settable(cartTable);
-        cartTable.getColumnModel().getColumn(n).setCellEditor(queryEditor);
-        cartTable.getColumnModel().getColumn(n).setCellRenderer(queryRender);
-        cartTable.getColumnModel().getColumn(n+1).setCellEditor(queryEditor1);
-        cartTable.getColumnModel().getColumn(n+1).setCellRenderer(queryRender1);
+        userUpdateEditor.settable(cartTable);
+        userDeleteEditor.settable(cartTable);
+        cartTable.getColumnModel().getColumn(n).setCellEditor(userUpdateEditor);
+        cartTable.getColumnModel().getColumn(n).setCellRenderer(userUpdateRender);
+        cartTable.getColumnModel().getColumn(n+1).setCellEditor(userDeleteEditor);
+        cartTable.getColumnModel().getColumn(n+1).setCellRenderer(userDeleteRender);
         cartTable.setRowSelectionAllowed(false);// 禁止表格的选择功能。不然在点击按钮时表格的整行都会被选中。也可以通过其它方式来实现。
+        panel_11.add(new JScrollPane(cartTable)).setBounds(102, 100, 800, 300);
     }
     public void filljtable(){
         String[] res1;
@@ -185,7 +131,7 @@ public class QueryUserPanel {
             age= null;
         }
         if(!textField.getText().trim().isEmpty()){
-            r[0]= textField_1.getText().trim();
+            r[0]= textField.getText().trim();
         }else{
             r[0]=null;
         }
@@ -260,34 +206,78 @@ public class QueryUserPanel {
                 }
             }
         });
-        queryEditor.settable(cartTable);
-        queryEditor1.settable(cartTable);
-        cartTable.getColumnModel().getColumn(n).setCellEditor(queryEditor);
-        cartTable.getColumnModel().getColumn(n).setCellRenderer(queryRender);
-        cartTable.getColumnModel().getColumn(n+1).setCellEditor(queryEditor1);
-        cartTable.getColumnModel().getColumn(n+1).setCellRenderer(queryRender1);
+        userUpdateEditor.settable(cartTable);
+        userDeleteEditor.settable(cartTable);
+        cartTable.getColumnModel().getColumn(n).setCellEditor(userUpdateEditor);
+        cartTable.getColumnModel().getColumn(n).setCellRenderer(userUpdateRender);
+        cartTable.getColumnModel().getColumn(n+1).setCellEditor(userDeleteEditor);
+        cartTable.getColumnModel().getColumn(n+1).setCellRenderer(userDeleteRender);
         cartTable.setRowSelectionAllowed(false);// 禁止表格的选择功能。不然在点击按钮时表格的整行都会被选中。也可以通过其它方式来实现。
     }
-    //GEN-BEGIN:variables
-    // Variables declaration - do not modify
-    private javax.swing.JTable cartTable;
-    private javax.swing.JTable goodsTable;
-    private javax.swing.JButton jb_add;
-    private JTextField textField;
-    private JTextField textField_1;
-    private JTextField textField_2;
-    private JTextField textField_3;
-    private JTextField textField_4;
-    private JTextField textField_5;
-    private javax.swing.JTextField totalMoneyTxt;
-    private javax.swing.JTextField totalNumTxt;
+    public void querypanel(){
 
-    // End of variables declaration//GEN-END:variables
-    public static void main(String[] args) {
-        buy buy = new buy();
-        buy.getPanel().setVisible(true);
+        jb_add = new JButton("查询");
+        jb_add.setBounds(560+102, 25+50, 66, 21);
+        panel_11.add(jb_add);
+
+        textField = new JTextField();
+        textField.setBounds(0+112, 25+50, 66, 21);
+        panel_11.add(textField);
+        textField.setColumns(10);
+        JLabel lblNewLabel = new JLabel("name");
+        lblNewLabel.setBounds(0+112, 50, 66, 21);
+        panel_11.add(lblNewLabel);
+
+        textField_1 = new JTextField();
+        textField_1.setColumns(10);
+        textField_1.setBounds(90+112, 25+50, 66, 21);
+        panel_11.add(textField_1);
+        JLabel lblNewLabel1 = new JLabel("password");
+        lblNewLabel1.setBounds(90+112, 50, 66, 21);
+        panel_11.add(lblNewLabel1);
+
+        textField_2 = new JTextField();
+        textField_2.setColumns(10);
+        textField_2.setBounds(180+112, 25+50, 66, 21);
+        panel_11.add(textField_2);
+        JLabel lblNewLabel2 = new JLabel("age");
+        lblNewLabel2.setBounds(180+112, 50, 66, 21);
+        panel_11.add(lblNewLabel2);
+
+        textField_3 = new JTextField();
+        textField_3.setColumns(10);
+        textField_3.setBounds(270+112, 25+50, 66, 21);
+        panel_11.add(textField_3);
+        JLabel lblNewLabel3 = new JLabel("sex");
+        lblNewLabel3.setBounds(270+112, 50, 66, 21);
+        panel_11.add(lblNewLabel3);
+
+        textField_4 = new JTextField();
+        textField_4.setColumns(10);
+        textField_4.setBounds(360+112, 25+50, 66, 21);
+        panel_11.add(textField_4);
+        JLabel lblNewLabel4 = new JLabel("phone");
+        lblNewLabel4.setBounds(360+112, 50, 66, 21);
+        panel_11.add(lblNewLabel4);
+
+        textField_5 = new JTextField();
+        textField_5.setColumns(10);
+        textField_5.setBounds(450+112, 25+50, 66, 21);
+        panel_11.add(textField_5);
+        JLabel lblNewLabel5 = new JLabel("address");
+        lblNewLabel5.setBounds(450+112, 50, 66, 21);
+        panel_11.add(lblNewLabel5);
+
+        jb_add.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                DefaultTableModel dtm = (DefaultTableModel) cartTable.getModel();
+                //清空之前显示
+                dtm.setRowCount(0);
+                filljtable();
+                System.out.println("重绘");
+            }
+        });
+        panel_11.add(jb_add);
     }
-
-
 }
 

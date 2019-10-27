@@ -1,8 +1,9 @@
-package com.sell.view.main.panel.user;
+package com.sell.view.main.panel.model.table;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
+
 @org.springframework.stereotype.Component
 public class QueryRender1  implements TableCellRenderer {
     private JPanel panel;

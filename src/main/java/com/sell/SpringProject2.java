@@ -4,7 +4,6 @@ package com.sell;
 import com.sell.service.UserService;
 import com.sell.view.Login;
 import com.sell.view.MainFrame;
-import com.sell.view.main.panel.order.AddOrderPanel;
 import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -22,8 +21,6 @@ public class SpringProject2 implements CommandLineRunner {
     private Login login;
     @Autowired
     private UserService userService;
-    @Autowired
-    private AddOrderPanel addOrderPanel;
     @Autowired
     private MainFrame mainFrame;
     @Override

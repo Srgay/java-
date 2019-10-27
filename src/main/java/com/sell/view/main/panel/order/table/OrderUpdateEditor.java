@@ -1,26 +1,21 @@
-package com.sell.view.main.panel.user;
+package com.sell.view.main.panel.order.table;
 
 
 import com.sell.entity.Buyer;
 import com.sell.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.awt.Component;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.DefaultCellEditor;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 
 
 /**
  * 自定义一个往列里边添加按钮的单元格编辑器。最好继承DefaultCellEditor，不然要实现的方法就太多了。
  */
 @org.springframework.stereotype.Component
-public class QueryEditor extends DefaultCellEditor implements ActionListener {
+public class OrderUpdateEditor extends DefaultCellEditor implements ActionListener {
     /**
      * serialVersionUID
      */
@@ -33,7 +28,7 @@ public class QueryEditor extends DefaultCellEditor implements ActionListener {
     private JButton button;
     private JTable cartTable;
 
-    public QueryEditor() {
+    public OrderUpdateEditor() {
         // DefautlCellEditor有此构造器，需要传入一个，但这个不会使用到，直接new一个即可。
         super(new JTextField());
         this.cartTable = cartTable;

@@ -1,6 +1,5 @@
 package com.sell.view.main.actionPerformed;
 
-import com.sell.view.main.panel.order.AddOrderPanel;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
