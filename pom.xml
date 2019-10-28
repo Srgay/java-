@@ -5,8 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>groupId</groupId>
-    <artifactId>MIS02</artifactId>
+    <artifactId>MIS04</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -229,7 +230,7 @@
     </distributionManagement>
 
     <build>
-        <finalName>springboot04</finalName>
+        <finalName>MIS04</finalName>
         <!-- 配置了很多插件 -->
         <plugins>
             <plugin>
@@ -268,7 +269,6 @@
                     <include>**/*.*</include>
                 </includes>
             </resource>
-
         </resources>
     </build>
 </project>

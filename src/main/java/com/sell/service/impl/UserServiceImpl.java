@@ -4,14 +4,10 @@ import com.sell.dao.BuyerMapper;
 import com.sell.entity.Buyer;
 import com.sell.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 
 @Service
@@ -28,6 +24,8 @@ public class UserServiceImpl implements UserService {
      * @param userName
      * @param passWord
      */
+
+
     public Buyer login(String userName, String passWord) {
 
         /*user= buyerMapper.selectLogin(userName,passWord);*/
