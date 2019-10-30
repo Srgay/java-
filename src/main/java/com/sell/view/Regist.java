@@ -92,15 +92,10 @@ public class Regist extends JFrame implements ActionListener {
 		String userSex=sexField.getText().trim();
 		String userPhone=phoneField.getText().trim();
 		String userAddress=addressField.getText().trim();
-		 Buyer buyer = new Buyer(userId,userName,passWord,Integer.valueOf(userAge),userSex,userPhone,userAddress);
-
-		 System.out.println("regis被试");
-		 System.out.println(userService);
+		Buyer buyer = new Buyer(userId,userName,passWord,Integer.valueOf(userAge),userSex,userPhone,userAddress);
 		 if(userId.equals("") ||userName.equals("") || passWord.equals("")||userAge.equals("")||userSex.equals("")||userPhone.equals("")||userAddress.equals("")){
 			JOptionPane.showMessageDialog(this, "请完善登录信息", "warning", JOptionPane.WARNING_MESSAGE);
 		}else{
-			 System.out.println("regis被试");
-			 System.out.println(userService);
 			 int i=userService.regist(buyer);
 		 	if (i==1){
 				JOptionPane.showMessageDialog(this, "成功", "warning", JOptionPane.WARNING_MESSAGE);

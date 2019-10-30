@@ -35,9 +35,9 @@ public class SpringProject2 implements CommandLineRunner {
             //TODO exception
         }
 
-       // login.setSize(300, 300);
-        //login.setLocationRelativeTo(null);
-        //login.setVisible(true);
+       /* login.setSize(300, 300);
+        login.setLocationRelativeTo(null);
+        login.setVisible(true);*/
         mainFrame.setTitle("鲜花销售管理信息系统");
         mainFrame.setSize(1021, 600);
         mainFrame.setLocationRelativeTo(null);
