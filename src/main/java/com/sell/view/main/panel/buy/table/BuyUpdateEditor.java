@@ -102,8 +102,8 @@ public class BuyUpdateEditor extends DefaultCellEditor implements ActionListener
     }
 
     public Buyer getObject(int row) {
-        String[] val = new String[7];
-        for (int i = 0; i < 7; i++) {
+        String[] val = new String[cartTable.getColumnCount()];
+        for (int i = 0; i < cartTable.getColumnCount(); i++) {
             val[i] = (String) cartTable.getValueAt(row, i);
         }
         Buyer user = new Buyer(val[0], val[1], val[2], Integer.valueOf(val[3]), val[4], val[5], val[6]);

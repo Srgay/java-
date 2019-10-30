@@ -103,6 +103,7 @@ public class AddStockPanel {
                 }
                 Stock stock=new Stock(r[0],r[1],count);
                 if(stockService.addStock(stock)==1){
+                    JOptionPane.showMessageDialog(null, "增加成功");
                     System.out.println("增加成功");
                 }
 

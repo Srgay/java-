@@ -1,6 +1,6 @@
 package com.sell.view.main.panel.buy.table;
 
-import com.sell.entity.Buyer;
+import com.sell.entity.Stock;
 import com.sell.service.UserService;
 import com.sell.view.main.panel.buy.BuyPanel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +25,11 @@ public class BuyDeleteEditor extends DefaultCellEditor implements ActionListener
     private JPanel panel;
 
     private JButton button;
-    private JTable cartTable;
-    public BuyDeleteEditor()
-    {
+    private JTable cartTable, buyTable;
+
+    public BuyDeleteEditor() {
         // DefautlCellEditor有此构造器，需要传入一个，但这个不会使用到，直接new一个即可。
         super(new JTextField());
-        this.cartTable=cartTable;
         // 设置点击几次激活编辑。
         this.setClickCountToStart(1);
 
@@ -42,8 +41,7 @@ public class BuyDeleteEditor extends DefaultCellEditor implements ActionListener
         this.panel.add(this.button);
     }
 
-    private void initButton()
-    {
+    private void initButton() {
         this.button = new JButton();
 
         // 设置按钮的大小及位置。
@@ -51,11 +49,9 @@ public class BuyDeleteEditor extends DefaultCellEditor implements ActionListener
         this.button.addActionListener(this);
 
 
-
     }
 
-    private void initPanel()
-    {
+    private void initPanel() {
         this.panel = new JPanel();
 
         // panel使用绝对定位，这样button就不会充满整个单元格。
@@ -67,8 +63,7 @@ public class BuyDeleteEditor extends DefaultCellEditor implements ActionListener
      * 这里重写父类的编辑方法，返回一个JPanel对象即可（也可以直接返回一个Button对象，但是那样会填充满整个单元格）
      */
     @Override
-    public Component getTableCellEditorComponent(final JTable table, Object value, boolean isSelected, int row, int column)
-    {
+    public Component getTableCellEditorComponent(final JTable table, Object value, boolean isSelected, int row, int column) {
         // 只为按钮赋值即可。也可以作其它操作。
         this.button.setText("删除");
         // 为按钮添加事件。这里只能添加ActionListner事件，Mouse事件无效。
@@ -80,8 +75,7 @@ public class BuyDeleteEditor extends DefaultCellEditor implements ActionListener
      * 重写编辑单元格时获取的值。如果不重写，这里可能会为按钮设置错误的值。
      */
     @Override
-    public Object getCellEditorValue()
-    {
+    public Object getCellEditorValue() {
         return this.button.getText();
     }
 
@@ -91,30 +85,45 @@ public class BuyDeleteEditor extends DefaultCellEditor implements ActionListener
             action();
         }
     }
-    private void action() {
+
+    private int action() {
         // 触发取消编辑的事件，不会调用tableModel的setValue方法。
         //MyButtonEditor.this.fireEditingCanceled();
-        Buyer user = getObject(cartTable.getSelectedRow());
-        System.out.println("删除"+user.toString());
-        if(userService.delete(user)==1){
-            //重回表格
-            DefaultTableModel dtm = (DefaultTableModel) cartTable.getModel();
-            dtm.removeRow(cartTable.getSelectedRow());
-            dtm.fireTableRowsDeleted(0,cartTable.getRowCount());
-        }
+        int rowb = buyTable.getSelectedRow();
+        Stock stock = getObject(rowb);
+        System.out.println("减少数量" + stock.toString());
+        DefaultTableModel dtm = (DefaultTableModel) cartTable.getModel();
+        DefaultTableModel dtb = (DefaultTableModel) buyTable.getModel();
 
+        //减少数量
+
+        for (int i = 0; i < cartTable.getRowCount(); i++) {
+            String aa = (String) cartTable.getValueAt(i, 1);
+            if (stock.getName().equals(aa)) {
+                cartTable.setValueAt(String.valueOf(Integer.valueOf((String)cartTable.getValueAt(i, 2)) + 1), i, 2);
+                buyTable.setValueAt(stock.getStock() - 1, rowb, 1);
+                dtm.fireTableRowsUpdated(0, cartTable.getRowCount());
+            }
+        }
+        if(stock.getStock()==1){
+            dtb.removeRow(buyTable.getSelectedRow());
+            dtb.fireTableRowsDeleted(0,buyTable.getRowCount());
+
+        }
+        return 1;
     }
 
-    public Buyer getObject(int row) {
-        String[] val = new String[7];
-        for (int i = 0; i < 7; i++) {
-            val[i] = (String) cartTable.getValueAt(row, i);
-        }
-        Buyer user = new Buyer(val[0], val[1], val[2], Integer.valueOf(val[3]), val[4], val[5], val[6]);
-        return user;
+    public Stock getObject(int row) {
+        int a=row;
+        Stock stock = new Stock(null, (String) buyTable.getValueAt(row, 0), (Integer) buyTable.getValueAt(row, 1));
+        return stock;
     }
-    public void settable(JTable table){
-        this.cartTable=table;
+
+    public void settable(JTable table) {
+        this.cartTable = table;
+    }
+    public void setbtable(JTable table) {
+        this.buyTable = table;
     }
 }
 

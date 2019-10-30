@@ -51,7 +51,7 @@ public class BuyAddRender implements TableCellRenderer {
                                                    int column)
     {
         // 只为按钮赋值即可。也可以作其它操作，如绘背景等。
-        this.button.setText("删除");
+        this.button.setText("添加");
 
         return this.panel;
     }
