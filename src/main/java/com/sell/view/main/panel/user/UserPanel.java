@@ -45,6 +45,9 @@ public class UserPanel {
         panel_11.setLayout(null);
         panel_11.setOpaque(true);
 
+        JLabel lblNewLabel = new JLabel("1");
+        lblNewLabel.setBounds(0, 0, 66, 21);
+        panel_11.add(lblNewLabel);
         //表格显示子模块
         initjtable();
 

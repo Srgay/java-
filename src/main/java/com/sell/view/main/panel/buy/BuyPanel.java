@@ -1,12 +1,12 @@
-package com.sell.view.main.panel.order;
+package com.sell.view.main.panel.buy;
 
 import com.sell.entity.Buyer;
 import com.sell.service.UserService;
 import com.sell.util.otov;
-import com.sell.view.main.panel.order.table.OrderDeleteEditor;
-import com.sell.view.main.panel.order.table.OrderUpdateEditor;
-import com.sell.view.main.panel.order.table.OrderDeleteRender;
-import com.sell.view.main.panel.order.table.OrderUpdateRender;
+import com.sell.view.main.panel.buy.table.BuyDeleteEditor;
+import com.sell.view.main.panel.buy.table.BuyUpdateEditor;
+import com.sell.view.main.panel.buy.table.BuyDeleteRender;
+import com.sell.view.main.panel.buy.table.BuyUpdateRender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Vector;
 
 @Component
-public class OrderPanel {
+public class BuyPanel {
 
     private JTable cartTable;
     private JButton jb_add;
@@ -28,27 +28,26 @@ public class OrderPanel {
     @Autowired
     private UserService userService;
     @Autowired
-    private OrderUpdateEditor orderUpdateEditor;
+    private BuyUpdateEditor buyUpdateEditor;
     @Autowired
-    private OrderUpdateRender orderUpdateRender;
+    private BuyUpdateRender buyUpdateRender;
     @Autowired
-    private OrderDeleteEditor orderDeleteEditor;
+    private BuyDeleteEditor buyDeleteEditor;
     @Autowired
-    private OrderDeleteRender orderDeleteRender;
-
+    private BuyDeleteRender buyDeleteRender;
 
     public JPanel getPanel() {
         panel_11 = new JPanel();
-        cartTable = new javax.swing.JTable();
-        jb_add = new javax.swing.JButton();
+        cartTable = new JTable();
+        jb_add = new JButton();
 
+        JLabel lblNewLabel = new JLabel("2");
+        lblNewLabel.setBounds(0, 0, 66, 21);
+        panel_11.add(lblNewLabel);
         //主界面
         panel_11.setLayout(null);
         panel_11.setOpaque(true);
 
-        JLabel lblNewLabel = new JLabel("4");
-        lblNewLabel.setBounds(0, 0, 66, 21);
-        panel_11.add(lblNewLabel);
         //表格显示子模块
         initjtable();
 
@@ -114,12 +113,12 @@ public class OrderPanel {
             }
 
         });
-        orderUpdateEditor.settable(cartTable);
-        orderDeleteEditor.settable(cartTable);
-        cartTable.getColumnModel().getColumn(n).setCellEditor(orderUpdateEditor);
-        cartTable.getColumnModel().getColumn(n).setCellRenderer(orderUpdateRender);
-        cartTable.getColumnModel().getColumn(n+1).setCellEditor(orderDeleteEditor);
-        cartTable.getColumnModel().getColumn(n+1).setCellRenderer(orderDeleteRender);
+        buyUpdateEditor.settable(cartTable);
+        buyDeleteEditor.settable(cartTable);
+        cartTable.getColumnModel().getColumn(n).setCellEditor(buyUpdateEditor);
+        cartTable.getColumnModel().getColumn(n).setCellRenderer(buyUpdateRender);
+        cartTable.getColumnModel().getColumn(n+1).setCellEditor(buyDeleteEditor);
+        cartTable.getColumnModel().getColumn(n+1).setCellRenderer(buyDeleteRender);
         cartTable.setRowSelectionAllowed(false);// 禁止表格的选择功能。不然在点击按钮时表格的整行都会被选中。也可以通过其它方式来实现。
         panel_11.add(new JScrollPane(cartTable)).setBounds(102, 100, 800, 300);
     }
@@ -210,12 +209,12 @@ public class OrderPanel {
                 }
             }
         });
-        orderUpdateEditor.settable(cartTable);
-        orderDeleteEditor.settable(cartTable);
-        cartTable.getColumnModel().getColumn(n).setCellEditor(orderUpdateEditor);
-        cartTable.getColumnModel().getColumn(n).setCellRenderer(orderUpdateRender);
-        cartTable.getColumnModel().getColumn(n+1).setCellEditor(orderDeleteEditor);
-        cartTable.getColumnModel().getColumn(n+1).setCellRenderer(orderDeleteRender);
+        buyUpdateEditor.settable(cartTable);
+        buyDeleteEditor.settable(cartTable);
+        cartTable.getColumnModel().getColumn(n).setCellEditor(buyUpdateEditor);
+        cartTable.getColumnModel().getColumn(n).setCellRenderer(buyUpdateRender);
+        cartTable.getColumnModel().getColumn(n+1).setCellEditor(buyDeleteEditor);
+        cartTable.getColumnModel().getColumn(n+1).setCellRenderer(buyDeleteRender);
         cartTable.setRowSelectionAllowed(false);// 禁止表格的选择功能。不然在点击按钮时表格的整行都会被选中。也可以通过其它方式来实现。
     }
     public void querypanel(){

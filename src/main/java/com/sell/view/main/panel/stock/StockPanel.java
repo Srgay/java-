@@ -1,10 +1,12 @@
-package com.sell.view.main.panel.model;
+package com.sell.view.main.panel.stock;
 
 import com.sell.entity.Buyer;
 import com.sell.service.UserService;
 import com.sell.util.otov;
-import com.sell.view.main.panel.model.table.QueryEditor;
-import com.sell.view.main.panel.model.table.QueryRender1;
+import com.sell.view.main.panel.stock.table.StockDeleteEditor;
+import com.sell.view.main.panel.stock.table.StockUpdateEditor;
+import com.sell.view.main.panel.stock.table.StockDeleteRender;
+import com.sell.view.main.panel.stock.table.StockUpdateRender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +19,7 @@ import java.util.List;
 import java.util.Vector;
 
 @Component
-public class QueryUserPanel {
+public class StockPanel {
 
     private JTable cartTable;
     private JButton jb_add;
@@ -26,13 +28,13 @@ public class QueryUserPanel {
     @Autowired
     private UserService userService;
     @Autowired
-    private QueryEditor updateEditor;
+    private StockUpdateEditor stockUpdateEditor;
     @Autowired
-    private QueryRender1 updateRender;
+    private StockUpdateRender stockUpdateRender;
     @Autowired
-    private QueryEditor deleteEditor;
+    private StockDeleteEditor stockDeleteEditor;
     @Autowired
-    private QueryRender1 deleteRender;
+    private StockDeleteRender stockDeleteRender;
 
     public JPanel getPanel() {
         panel_11 = new JPanel();
@@ -43,6 +45,9 @@ public class QueryUserPanel {
         panel_11.setLayout(null);
         panel_11.setOpaque(true);
 
+        JLabel lblNewLabel = new JLabel("3");
+        lblNewLabel.setBounds(0, 0, 66, 21);
+        panel_11.add(lblNewLabel);
         //表格显示子模块
         initjtable();
 
@@ -108,12 +113,12 @@ public class QueryUserPanel {
             }
 
         });
-        updateEditor.settable(cartTable);
-        deleteEditor.settable(cartTable);
-        cartTable.getColumnModel().getColumn(n).setCellEditor(updateEditor);
-        cartTable.getColumnModel().getColumn(n).setCellRenderer(updateRender);
-        cartTable.getColumnModel().getColumn(n+1).setCellEditor(deleteEditor);
-        cartTable.getColumnModel().getColumn(n+1).setCellRenderer(deleteRender);
+        stockUpdateEditor.settable(cartTable);
+        stockDeleteEditor.settable(cartTable);
+        cartTable.getColumnModel().getColumn(n).setCellEditor(stockUpdateEditor);
+        cartTable.getColumnModel().getColumn(n).setCellRenderer(stockUpdateRender);
+        cartTable.getColumnModel().getColumn(n+1).setCellEditor(stockDeleteEditor);
+        cartTable.getColumnModel().getColumn(n+1).setCellRenderer(stockDeleteRender);
         cartTable.setRowSelectionAllowed(false);// 禁止表格的选择功能。不然在点击按钮时表格的整行都会被选中。也可以通过其它方式来实现。
         panel_11.add(new JScrollPane(cartTable)).setBounds(102, 100, 800, 300);
     }
@@ -204,12 +209,12 @@ public class QueryUserPanel {
                 }
             }
         });
-        updateEditor.settable(cartTable);
-        deleteEditor.settable(cartTable);
-        cartTable.getColumnModel().getColumn(n).setCellEditor(updateEditor);
-        cartTable.getColumnModel().getColumn(n).setCellRenderer(updateRender);
-        cartTable.getColumnModel().getColumn(n+1).setCellEditor(deleteEditor);
-        cartTable.getColumnModel().getColumn(n+1).setCellRenderer(deleteRender);
+        stockUpdateEditor.settable(cartTable);
+        stockDeleteEditor.settable(cartTable);
+        cartTable.getColumnModel().getColumn(n).setCellEditor(stockUpdateEditor);
+        cartTable.getColumnModel().getColumn(n).setCellRenderer(stockUpdateRender);
+        cartTable.getColumnModel().getColumn(n+1).setCellEditor(stockDeleteEditor);
+        cartTable.getColumnModel().getColumn(n+1).setCellRenderer(stockDeleteRender);
         cartTable.setRowSelectionAllowed(false);// 禁止表格的选择功能。不然在点击按钮时表格的整行都会被选中。也可以通过其它方式来实现。
     }
     public void querypanel(){

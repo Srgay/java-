@@ -36,7 +36,7 @@ public class SpringProject2 implements CommandLineRunner {
         }
 
        // login.setSize(300, 300);
-        //login.setLocationByPlatform(true);
+        //login.setLocationRelativeTo(null);
         //login.setVisible(true);
         mainFrame.setTitle("鲜花销售管理信息系统");
         mainFrame.setSize(1021, 600);

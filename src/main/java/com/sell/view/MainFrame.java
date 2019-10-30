@@ -2,7 +2,9 @@ package com.sell.view;
 
 
 import com.sell.view.main.actionPerformed.MainAction;
+import com.sell.view.main.panel.buy.BuyPanel;
 import com.sell.view.main.panel.order.OrderPanel;
+import com.sell.view.main.panel.stock.StockPanel;
 import com.sell.view.main.panel.user.UserPanel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,6 +29,10 @@ public class MainFrame extends JFrame implements ActionListener {
     @Autowired
     private UserPanel userPanel;
     @Autowired
+    private BuyPanel buyPanel;
+    @Autowired
+    private StockPanel stockPanel;
+    @Autowired
     private OrderPanel orderPanel;
 
     public MainFrame() {
@@ -48,17 +54,6 @@ public class MainFrame extends JFrame implements ActionListener {
         mnNewMenu.add(menuItem_11);
         menuItem_11.addActionListener(this);
 
-        menuItem_12 = new JMenuItem("删除用户");
-        mnNewMenu.add(menuItem_12);
-        menuItem_12.addActionListener(this);
-
-        menuItem_13 = new JMenuItem("修改用户");
-        mnNewMenu.add(menuItem_13);
-        menuItem_13.addActionListener(this);
-
-        menuItem_14 = new JMenuItem("查询用户");
-        mnNewMenu.add(menuItem_14);
-        menuItem_14.addActionListener(this);
 
         JMenu mnNewMenu_1 = new JMenu("商品销售");
         menuBar.add(mnNewMenu_1);
@@ -67,9 +62,6 @@ public class MainFrame extends JFrame implements ActionListener {
         mnNewMenu_1.add(menuItem_21);
         menuItem_21.addActionListener(this);
 
-        menuItem_22 = new JMenuItem("库存管理2");
-        mnNewMenu_1.add(menuItem_22);
-        menuItem_22.addActionListener(this);
 
         JMenu menu = new JMenu("进货管理");
         menuBar.add(menu);
@@ -78,32 +70,14 @@ public class MainFrame extends JFrame implements ActionListener {
         menu.add(menuItem_31);
         menuItem_31.addActionListener(this);
 
-        menuItem_32 = new JMenuItem("进货管理2");
-        menu.add(menuItem_32);
-        menuItem_32.addActionListener(this);
 
-        menuItem_33 = new JMenuItem("进货管理3");
-        menu.add(menuItem_33);
-        menuItem_33.addActionListener(this);
-
-        menuItem_34 = new JMenuItem("进货管理4");
-        menu.add(menuItem_34);
-        menuItem_34.addActionListener(this);
-
-        JMenu menu_2 = new JMenu("销售管理");
+        JMenu menu_2 = new JMenu("订单管理");
         menuBar.add(menu_2);
 
-        menuItem_51 = new JMenuItem("New menu item");
+        menuItem_51 = new JMenuItem("订单管理");
         menu_2.add(menuItem_51);
         menuItem_51.addActionListener(this);
 
-        menuItem_52 = new JMenuItem("New menu item");
-        menu_2.add(menuItem_52);
-        menuItem_52.addActionListener(this);
-
-        menuItem_53 = new JMenuItem("New menu item");
-        menu_2.add(menuItem_53);
-        menuItem_53.addActionListener(this);
 
         getContentPane().setLayout(null);
 
@@ -128,6 +102,12 @@ public class MainFrame extends JFrame implements ActionListener {
             mainAction.action(panel, userPanel.getPanel());
         }
         if (e.getSource() == menuItem_21) {
+            mainAction.action(panel, buyPanel.getPanel());
+        }
+        if (e.getSource() == menuItem_31) {
+            mainAction.action(panel, stockPanel.getPanel());
+        }
+        if (e.getSource() == menuItem_51) {
             mainAction.action(panel, orderPanel.getPanel());
         }
        /* if (e.getSource() == menuItem_11) {

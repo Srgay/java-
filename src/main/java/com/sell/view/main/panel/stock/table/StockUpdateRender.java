@@ -1,16 +1,17 @@
-package com.sell.view.main.panel.model.table;
+package com.sell.view.main.panel.stock.table;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
 @org.springframework.stereotype.Component
-public class QueryRender1  implements TableCellRenderer {
+public class StockUpdateRender implements TableCellRenderer
+{
     private JPanel panel;
 
     private JButton button;
 
-    public QueryRender1()
+    public StockUpdateRender()
     {
         this.initButton();
 
@@ -51,7 +52,7 @@ public class QueryRender1  implements TableCellRenderer {
                                                    int column)
     {
         // 只为按钮赋值即可。也可以作其它操作，如绘背景等。
-        this.button.setText("删除");
+        this.button.setText("修改");
 
         return this.panel;
     }

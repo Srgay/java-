@@ -1,17 +1,17 @@
-package com.sell.view.main.panel.model.table;
+package com.sell.view.main.panel.buy.table;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
 @org.springframework.stereotype.Component
-public class QueryRender implements TableCellRenderer
+public class BuyUpdateRender implements TableCellRenderer
 {
     private JPanel panel;
 
     private JButton button;
 
-    public QueryRender()
+    public BuyUpdateRender()
     {
         this.initButton();
 
