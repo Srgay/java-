@@ -1,11 +1,11 @@
 package com.sell.view.main.panel.order;
 
-import com.sell.entity.Buyer;
-import com.sell.service.UserService;
+import com.sell.entity.Orderr;
+import com.sell.service.OrderService;
 import com.sell.util.otov;
 import com.sell.view.main.panel.order.table.OrderDeleteEditor;
-import com.sell.view.main.panel.order.table.OrderUpdateEditor;
 import com.sell.view.main.panel.order.table.OrderDeleteRender;
+import com.sell.view.main.panel.order.table.OrderUpdateEditor;
 import com.sell.view.main.panel.order.table.OrderUpdateRender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,7 +26,7 @@ public class OrderPanel {
     private JTextField textField,textField_1,textField_2,textField_3,textField_4,textField_5;
     private  JPanel panel_11;
     @Autowired
-    private UserService userService;
+    private OrderService orderService;
     @Autowired
     private OrderUpdateEditor orderUpdateEditor;
     @Autowired
@@ -39,8 +39,8 @@ public class OrderPanel {
 
     public JPanel getPanel() {
         panel_11 = new JPanel();
-        cartTable = new javax.swing.JTable();
-        jb_add = new javax.swing.JButton();
+        cartTable = new JTable();
+        jb_add = new JButton();
 
         //主界面
         panel_11.setLayout(null);
@@ -62,33 +62,24 @@ public class OrderPanel {
     public void initjtable(){
         String[] res1;
         String[][] res;
-        List l = userService.queryAll();
+        List l = orderService.queryAll();
         int m = l.size(), n = otov.tov(l.get(0)).size();
         res = new String[m][n];
         for (int i = 0; i < m; i++) {
             String[] arr1 = new ArrayList<String>(otov.tov(l.get(i)).values()).toArray(new String[0]);
             res[i]=java.util.Arrays.copyOf(arr1,arr1.length+2);
-            res[i][0]=arr1[5];
-            res[i][1]=arr1[4];
-            res[i][2]=arr1[0];
-            res[i][3]=arr1[6];
-            res[i][4]=arr1[3];
-            res[i][5]=arr1[2];
-            res[i][6]=arr1[1];
-
+            res[i][0]=arr1[2];
+            res[i][1]=arr1[0];
+            res[i][2]=arr1[1];
             res[i][arr1.length]="0";
             res[i][arr1.length+1]="0";
         }
 
         String[] arr1 = new ArrayList<String>(otov.tov(l.get(0)).keySet()).toArray(new String[0]);
         res1=java.util.Arrays.copyOf(arr1,arr1.length+2);
-        res1[0]=arr1[5];
-        res1[1]=arr1[4];
-        res1[2]=arr1[0];
-        res1[3]=arr1[6];
-        res1[4]=arr1[3];
-        res1[5]=arr1[2];
-        res1[6]=arr1[1];
+        res1[0]=arr1[2];
+        res1[1]=arr1[0];
+        res1[2]=arr1[1];
         res1[arr1.length]="0";
         res1[arr1.length+1]="0";
 
@@ -128,11 +119,11 @@ public class OrderPanel {
         String[][] res;
         String[] r=new String[5];
         Integer f=0;
-        Integer age=0;
+        Integer price=0;
         try{
-            age=Integer.valueOf(textField_2.getText().trim());
+            price=Integer.valueOf(textField_2.getText().trim());
         }catch (Exception e){
-            age= null;
+            price= null;
         }
         if(!textField.getText().trim().isEmpty()){
             r[0]= textField.getText().trim();
@@ -144,48 +135,28 @@ public class OrderPanel {
         }else{
             r[1]=null;
         }
-        if(!textField_3.getText().trim().isEmpty()){
-            r[2]= textField_3.getText().trim();
-        }else{
-            r[2]=null;
-        }
-        if(!textField_4.getText().trim().isEmpty()){
-            r[3]= textField_4.getText().trim();
-        }else{
-            r[3]=null;
-        }
-        if(!textField_5.getText().trim().isEmpty()){
-            r[4]= textField_5.getText().trim();
-        }else{
-            r[4]=null;
-        }
-        Buyer user=new Buyer(null,r[0],r[1],age, r[2],r[3],r[4]);
-        List l=userService.query(user);
-        int m = l.size(), n = otov.tov(l.get(0)).size();
+
+        Orderr order=new Orderr(r[0],r[1],price);
+        List l=orderService.query(order);
+        int m=0,n=0;
+        m = l.size();
+        n = otov.tov(l.get(0)).size();
         res = new String[m][n];
         for (int i = 0; i < m; i++) {
             String[] arr1 = new ArrayList<String>(otov.tov(l.get(i)).values()).toArray(new String[0]);
             res[i]=java.util.Arrays.copyOf(arr1,arr1.length+2);
-            res[i][0]=arr1[5];
-            res[i][1]=arr1[4];
-            res[i][2]=arr1[0];
-            res[i][3]=arr1[6];
-            res[i][4]=arr1[3];
-            res[i][5]=arr1[2];
-            res[i][6]=arr1[1];
+            res[i][0]=arr1[2];
+            res[i][1]=arr1[0];
+            res[i][2]=arr1[1];
             res[i][arr1.length]="0";
             res[i][arr1.length+1]="0";
         }
 
         String[] arr1 = new ArrayList<String>(otov.tov(l.get(0)).keySet()).toArray(new String[0]);
         res1=java.util.Arrays.copyOf(arr1,arr1.length+2);
-        res1[0]=arr1[5];
-        res1[1]=arr1[4];
-        res1[2]=arr1[0];
-        res1[3]=arr1[6];
-        res1[4]=arr1[3];
-        res1[5]=arr1[2];
-        res1[6]=arr1[1];
+        res1[0]=arr1[2];
+        res1[1]=arr1[0];
+        res1[2]=arr1[1];
         res1[arr1.length]="0";
         res1[arr1.length+1]="0";
 
@@ -221,14 +192,14 @@ public class OrderPanel {
     public void querypanel(){
 
         jb_add = new JButton("查询");
-        jb_add.setBounds(560+102, 25+50, 66, 21);
+        jb_add.setBounds(270+102, 25+50, 66, 21);
         panel_11.add(jb_add);
 
         textField = new JTextField();
         textField.setBounds(0+112, 25+50, 66, 21);
         panel_11.add(textField);
         textField.setColumns(10);
-        JLabel lblNewLabel = new JLabel("name");
+        JLabel lblNewLabel = new JLabel("id");
         lblNewLabel.setBounds(0+112, 50, 66, 21);
         panel_11.add(lblNewLabel);
 
@@ -236,7 +207,7 @@ public class OrderPanel {
         textField_1.setColumns(10);
         textField_1.setBounds(90+112, 25+50, 66, 21);
         panel_11.add(textField_1);
-        JLabel lblNewLabel1 = new JLabel("password");
+        JLabel lblNewLabel1 = new JLabel("item");
         lblNewLabel1.setBounds(90+112, 50, 66, 21);
         panel_11.add(lblNewLabel1);
 
@@ -244,41 +215,21 @@ public class OrderPanel {
         textField_2.setColumns(10);
         textField_2.setBounds(180+112, 25+50, 66, 21);
         panel_11.add(textField_2);
-        JLabel lblNewLabel2 = new JLabel("age");
+        JLabel lblNewLabel2 = new JLabel("price");
         lblNewLabel2.setBounds(180+112, 50, 66, 21);
         panel_11.add(lblNewLabel2);
-
-        textField_3 = new JTextField();
-        textField_3.setColumns(10);
-        textField_3.setBounds(270+112, 25+50, 66, 21);
-        panel_11.add(textField_3);
-        JLabel lblNewLabel3 = new JLabel("sex");
-        lblNewLabel3.setBounds(270+112, 50, 66, 21);
-        panel_11.add(lblNewLabel3);
-
-        textField_4 = new JTextField();
-        textField_4.setColumns(10);
-        textField_4.setBounds(360+112, 25+50, 66, 21);
-        panel_11.add(textField_4);
-        JLabel lblNewLabel4 = new JLabel("phone");
-        lblNewLabel4.setBounds(360+112, 50, 66, 21);
-        panel_11.add(lblNewLabel4);
-
-        textField_5 = new JTextField();
-        textField_5.setColumns(10);
-        textField_5.setBounds(450+112, 25+50, 66, 21);
-        panel_11.add(textField_5);
-        JLabel lblNewLabel5 = new JLabel("address");
-        lblNewLabel5.setBounds(450+112, 50, 66, 21);
-        panel_11.add(lblNewLabel5);
 
         jb_add.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 DefaultTableModel dtm = (DefaultTableModel) cartTable.getModel();
                 //清空之前显示
                 dtm.setRowCount(0);
-                filljtable();
-                System.out.println("重绘");
+                try {
+                    filljtable();
+                    System.out.println("重绘");
+                }catch (Exception e1){
+                    JOptionPane.showMessageDialog(panel_11, "未查询到", "警告",JOptionPane.WARNING_MESSAGE);
+                }
             }
         });
         panel_11.add(jb_add);

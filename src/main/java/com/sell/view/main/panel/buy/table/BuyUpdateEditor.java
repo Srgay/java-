@@ -24,6 +24,7 @@ public class BuyUpdateEditor extends DefaultCellEditor implements ActionListener
     private static final long serialVersionUID = -6546334664166791132L;
 
     private JPanel panel;
+    private  JPanel panel_11;
 
     private JButton button;
     private JTable cartTable;
@@ -94,6 +95,7 @@ public class BuyUpdateEditor extends DefaultCellEditor implements ActionListener
         Buyer user = getObject(cartTable.getSelectedRow());
         System.out.println("修改"+user.toString());
         userService.update(user);
+        JOptionPane.showMessageDialog(null, "修改成功");
         // 这里可以做其它操作。
         // 可以将table传入，通过getSelectedRow,getSelectColumn方法获取到当前选择的行和列及其它操作等。
 
@@ -110,5 +112,8 @@ public class BuyUpdateEditor extends DefaultCellEditor implements ActionListener
 
     public void settable(JTable table) {
         this.cartTable = table;
+    }
+    public void setPanel(JPanel panel) {
+        this.panel_11 = panel;
     }
 }

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.com.sell.dao.StockMapper">
-  <resultMap id="BaseResultMap" type="com.com.sell.entity.Stock">
+<mapper namespace="com.sell.dao.StockMapper">
+  <resultMap id="BaseResultMap" type="com.sell.entity.Stock">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="stock" jdbcType="INTEGER" property="stock" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from stock
     where id = #{id,jdbcType=VARCHAR}
   </delete>
@@ -30,5 +30,5 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select id, `name`, stock
     from stock
-  </select>
+  </select>-->
 </mapper>

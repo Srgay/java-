@@ -1,7 +1,7 @@
 package com.sell.view.main.panel.stock.table;
 
-import com.sell.entity.Buyer;
-import com.sell.service.UserService;
+import com.sell.entity.Stock;
+import com.sell.service.StockService;
 import com.sell.view.main.panel.stock.StockPanel;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,7 +19,7 @@ public class StockDeleteEditor extends DefaultCellEditor implements ActionListen
     private static final long serialVersionUID = -6546334664166791132L;
 
     @Autowired
-    private UserService userService;
+    private StockService stockService;
     @Autowired
     private StockPanel stockPanel;
     private JPanel panel;
@@ -94,24 +94,24 @@ public class StockDeleteEditor extends DefaultCellEditor implements ActionListen
     private void action() {
         // 触发取消编辑的事件，不会调用tableModel的setValue方法。
         //MyButtonEditor.this.fireEditingCanceled();
-        Buyer user = getObject(cartTable.getSelectedRow());
-        System.out.println("删除"+user.toString());
-        if(userService.delete(user)==1){
+        Stock stock = getObject(cartTable.getSelectedRow());
+        System.out.println("删除"+stock.toString());
+        if(stockService.delete(stock)==1){
+            //重回表格
             DefaultTableModel dtm = (DefaultTableModel) cartTable.getModel();
-            dtm.setRowCount(0);
-            //dtm.removeRow(cartTable.getSelectedRow());
-            stockPanel.filljtable();
+            dtm.removeRow(cartTable.getSelectedRow());
+            dtm.fireTableRowsDeleted(0,cartTable.getRowCount());
         }
 
     }
 
-    public Buyer getObject(int row) {
+    public Stock getObject(int row) {
         String[] val = new String[7];
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < cartTable.getColumnCount(); i++) {
             val[i] = (String) cartTable.getValueAt(row, i);
         }
-        Buyer user = new Buyer(val[0], val[1], val[2], Integer.valueOf(val[3]), val[4], val[5], val[6]);
-        return user;
+        Stock stock = new Stock(val[0], val[1], Integer.valueOf(val[2]));
+        return stock;
     }
     public void settable(JTable table){
         this.cartTable=table;

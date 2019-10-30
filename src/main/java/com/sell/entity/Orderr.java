@@ -2,20 +2,19 @@ package com.sell.entity;
 
 import java.io.Serializable;
 
-public class Stock implements Serializable {
+public class Orderr implements Serializable {
     private String id;
 
-    private String name;
+    private String item;
 
-    private Integer stock;
+    private Integer price;
 
     private static final long serialVersionUID = 1L;
-    public Stock(){
-    }
-    public Stock(String id, String name, Integer stock) {
+    public Orderr(){}
+    public Orderr(String id, String item, Integer price) {
         this.id = id;
-        this.name = name;
-        this.stock = stock;
+        this.item = item;
+        this.price = price;
     }
 
     public String getId() {
@@ -26,20 +25,20 @@ public class Stock implements Serializable {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getName() {
-        return name;
+    public String getItem() {
+        return item;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setItem(String item) {
+        this.item = item == null ? null : item.trim();
     }
 
-    public Integer getStock() {
-        return stock;
+    public Integer getPrice() {
+        return price;
     }
 
-    public void setStock(Integer stock) {
-        this.stock = stock;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     @Override
@@ -49,8 +48,8 @@ public class Stock implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
-        sb.append(", stock=").append(stock);
+        sb.append(", item=").append(item);
+        sb.append(", price=").append(price);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

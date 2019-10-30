@@ -97,10 +97,10 @@ public class BuyDeleteEditor extends DefaultCellEditor implements ActionListener
         Buyer user = getObject(cartTable.getSelectedRow());
         System.out.println("删除"+user.toString());
         if(userService.delete(user)==1){
+            //重回表格
             DefaultTableModel dtm = (DefaultTableModel) cartTable.getModel();
-            dtm.setRowCount(0);
-            //dtm.removeRow(cartTable.getSelectedRow());
-            buyPanel.filljtable();
+            dtm.removeRow(cartTable.getSelectedRow());
+            dtm.fireTableRowsDeleted(0,cartTable.getRowCount());
         }
 
     }

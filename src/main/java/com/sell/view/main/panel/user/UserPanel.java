@@ -38,8 +38,8 @@ public class UserPanel {
 
     public JPanel getPanel() {
         panel_11 = new JPanel();
-        cartTable = new javax.swing.JTable();
-        jb_add = new javax.swing.JButton();
+        cartTable = new JTable();
+        jb_add = new JButton();
 
         //主界面
         panel_11.setLayout(null);
@@ -276,8 +276,12 @@ public class UserPanel {
                 DefaultTableModel dtm = (DefaultTableModel) cartTable.getModel();
                 //清空之前显示
                 dtm.setRowCount(0);
-                filljtable();
-                System.out.println("重绘");
+                try {
+                    filljtable();
+                    System.out.println("重绘");
+                }catch (Exception e1){
+                    JOptionPane.showMessageDialog(panel_11, "未查询到", "警告",JOptionPane.WARNING_MESSAGE);
+                }
             }
         });
         panel_11.add(jb_add);

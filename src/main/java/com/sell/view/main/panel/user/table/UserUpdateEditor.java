@@ -5,15 +5,10 @@ import com.sell.entity.Buyer;
 import com.sell.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.awt.Component;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.DefaultCellEditor;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 
 
 /**
@@ -29,6 +24,7 @@ public class UserUpdateEditor extends DefaultCellEditor implements ActionListene
     private static final long serialVersionUID = -6546334664166791132L;
 
     private JPanel panel;
+    private  JPanel panel_11;
 
     private JButton button;
     private JTable cartTable;
@@ -99,6 +95,7 @@ public class UserUpdateEditor extends DefaultCellEditor implements ActionListene
         Buyer user = getObject(cartTable.getSelectedRow());
         System.out.println("修改"+user.toString());
         userService.update(user);
+        JOptionPane.showMessageDialog(null, "修改成功");
         // 这里可以做其它操作。
         // 可以将table传入，通过getSelectedRow,getSelectColumn方法获取到当前选择的行和列及其它操作等。
 
@@ -115,5 +112,8 @@ public class UserUpdateEditor extends DefaultCellEditor implements ActionListene
 
     public void settable(JTable table) {
         this.cartTable = table;
+    }
+    public void setPanel(JPanel panel) {
+        this.panel_11 = panel;
     }
 }

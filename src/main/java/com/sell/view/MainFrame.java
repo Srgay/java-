@@ -4,6 +4,7 @@ package com.sell.view;
 import com.sell.view.main.actionPerformed.MainAction;
 import com.sell.view.main.panel.buy.BuyPanel;
 import com.sell.view.main.panel.order.OrderPanel;
+import com.sell.view.main.panel.stock.AddStockPanel;
 import com.sell.view.main.panel.stock.StockPanel;
 import com.sell.view.main.panel.user.UserPanel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class MainFrame extends JFrame implements ActionListener {
     private BuyPanel buyPanel;
     @Autowired
     private StockPanel stockPanel;
+    @Autowired
+    private AddStockPanel addStockPanel;
     @Autowired
     private OrderPanel orderPanel;
 
@@ -70,6 +73,9 @@ public class MainFrame extends JFrame implements ActionListener {
         menu.add(menuItem_31);
         menuItem_31.addActionListener(this);
 
+        menuItem_32 = new JMenuItem("添加商品");
+        menu.add(menuItem_32);
+        menuItem_32.addActionListener(this);
 
         JMenu menu_2 = new JMenu("订单管理");
         menuBar.add(menu_2);
@@ -106,6 +112,9 @@ public class MainFrame extends JFrame implements ActionListener {
         }
         if (e.getSource() == menuItem_31) {
             mainAction.action(panel, stockPanel.getPanel());
+        }
+        if (e.getSource() == menuItem_32) {
+            mainAction.action(panel, addStockPanel.getPanel());
         }
         if (e.getSource() == menuItem_51) {
             mainAction.action(panel, orderPanel.getPanel());

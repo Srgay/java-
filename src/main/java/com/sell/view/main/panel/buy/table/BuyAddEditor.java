@@ -1,8 +1,8 @@
-package com.sell.view.main.panel.order.table;
+package com.sell.view.main.panel.buy.table;
 
-import com.sell.entity.Orderr;
-import com.sell.service.OrderService;
-import com.sell.view.main.panel.order.OrderPanel;
+import com.sell.entity.Buyer;
+import com.sell.service.UserService;
+import com.sell.view.main.panel.buy.BuyPanel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.swing.*;
@@ -12,21 +12,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @org.springframework.stereotype.Component
-public class OrderDeleteEditor extends DefaultCellEditor implements ActionListener {
+public class BuyAddEditor extends DefaultCellEditor implements ActionListener {
     /**
      * serialVersionUID
      */
     private static final long serialVersionUID = -6546334664166791132L;
 
     @Autowired
-    private OrderService orderService;
+    private UserService userService;
     @Autowired
-    private OrderPanel orderPanel;
+    private BuyPanel buyPanel;
     private JPanel panel;
 
     private JButton button;
     private JTable cartTable;
-    public OrderDeleteEditor()
+    public BuyAddEditor()
     {
         // DefautlCellEditor有此构造器，需要传入一个，但这个不会使用到，直接new一个即可。
         super(new JTextField());
@@ -94,9 +94,9 @@ public class OrderDeleteEditor extends DefaultCellEditor implements ActionListen
     private void action() {
         // 触发取消编辑的事件，不会调用tableModel的setValue方法。
         //MyButtonEditor.this.fireEditingCanceled();
-        Orderr order = getObject(cartTable.getSelectedRow());
-        System.out.println("删除"+order.toString());
-        if(orderService.delete(order)==1){
+        Buyer user = getObject(cartTable.getSelectedRow());
+        System.out.println("删除"+user.toString());
+        if(userService.delete(user)==1){
             //重回表格
             DefaultTableModel dtm = (DefaultTableModel) cartTable.getModel();
             dtm.removeRow(cartTable.getSelectedRow());
@@ -105,13 +105,13 @@ public class OrderDeleteEditor extends DefaultCellEditor implements ActionListen
 
     }
 
-    public Orderr getObject(int row) {
+    public Buyer getObject(int row) {
         String[] val = new String[7];
-        for (int i = 0; i < cartTable.getColumnCount(); i++) {
+        for (int i = 0; i < 7; i++) {
             val[i] = (String) cartTable.getValueAt(row, i);
         }
-        Orderr order = new Orderr(val[0], val[1],Integer.valueOf(val[2]));
-        return order;
+        Buyer user = new Buyer(val[0], val[1], val[2], Integer.valueOf(val[3]), val[4], val[5], val[6]);
+        return user;
     }
     public void settable(JTable table){
         this.cartTable=table;
