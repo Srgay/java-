@@ -107,11 +107,11 @@ public class BuyAddEditor extends DefaultCellEditor implements ActionListener {
             //若库存够，则添加
             Vector re = new Vector();
             re.add(cartTable.getValueAt(row, 1));
-            re.add(1);
+            re.add("1");
             for (int i = 0; i < buyTable.getRowCount(); i++) {
                 String aa = (String) buyTable.getValueAt(i, 0);
                 if (re.get(0).equals(aa)) {
-                    buyTable.setValueAt((Integer) buyTable.getValueAt(i, 1) + 1, i, 1);
+                    buyTable.setValueAt(String.valueOf(Integer.valueOf((String)buyTable.getValueAt(i, 1)) + 1), i, 1);
                     cartTable.setValueAt(String.valueOf(st-1),row,2);
                     //dtm.fireTableRowsUpdated(0,cartTable.getRowCount());
                     return 1;
@@ -130,7 +130,7 @@ public class BuyAddEditor extends DefaultCellEditor implements ActionListener {
         for (int i = 0; i < 4; i++) {
             val[i] = (String) cartTable.getValueAt(row, i);
         }
-        Stock stock = new Stock(val[0], val[1], Integer.valueOf(val[2]));
+        Stock stock = new Stock(val[0], val[1], Integer.valueOf(val[2]),val[3]);
         return stock;
     }
 

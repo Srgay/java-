@@ -9,13 +9,16 @@ public class Stock implements Serializable {
 
     private Integer stock;
 
+    private String price;
+
     private static final long serialVersionUID = 1L;
     public Stock(){
     }
-    public Stock(String id, String name, Integer stock) {
+    public Stock(String id, String name, Integer stock,String price) {
         this.id = id;
         this.name = name;
         this.stock = stock;
+        this.price = price;
     }
 
     public String getId() {
@@ -41,6 +44,14 @@ public class Stock implements Serializable {
     public void setStock(Integer stock) {
         this.stock = stock;
     }
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price == null ? null : price.trim();
+    }
+
 
     @Override
     public String toString() {
@@ -51,6 +62,7 @@ public class Stock implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", stock=").append(stock);
+        sb.append(", price=").append(price);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

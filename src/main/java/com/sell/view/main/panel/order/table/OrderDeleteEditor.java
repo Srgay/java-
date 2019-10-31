@@ -101,6 +101,8 @@ public class OrderDeleteEditor extends DefaultCellEditor implements ActionListen
             DefaultTableModel dtm = (DefaultTableModel) cartTable.getModel();
             dtm.removeRow(cartTable.getSelectedRow());
             dtm.fireTableRowsDeleted(0,cartTable.getRowCount());
+            dtm.fireTableStructureChanged();
+            orderPanel.sin();
         }
 
     }

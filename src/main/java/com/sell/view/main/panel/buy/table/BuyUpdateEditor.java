@@ -1,11 +1,13 @@
 package com.sell.view.main.panel.buy.table;
 
 
-import com.sell.entity.Buyer;
+import com.sell.entity.Stock;
 import com.sell.service.UserService;
+import com.sell.view.main.panel.buy.BuyPanel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,12 +24,13 @@ public class BuyUpdateEditor extends DefaultCellEditor implements ActionListener
     @Autowired
     private UserService userService;
     private static final long serialVersionUID = -6546334664166791132L;
-
+    @Autowired
+    private BuyPanel buyPanel;
     private JPanel panel;
     private  JPanel panel_11;
 
     private JButton button;
-    private JTable cartTable;
+    private JTable cartTable,buyTable;
 
     public BuyUpdateEditor() {
         // DefautlCellEditor有此构造器，需要传入一个，但这个不会使用到，直接new一个即可。
@@ -68,7 +71,7 @@ public class BuyUpdateEditor extends DefaultCellEditor implements ActionListener
     @Override
     public Component getTableCellEditorComponent(final JTable table, Object value, boolean isSelected, int row, int column) {
         // 只为按钮赋值即可。也可以作其它操作。
-        this.button.setText("修改");
+        this.button.setText("增加");
         // 为按钮添加事件。这里只能添加ActionListner事件，Mouse事件无效。
 
         return this.panel;
@@ -89,31 +92,47 @@ public class BuyUpdateEditor extends DefaultCellEditor implements ActionListener
         }
     }
 
-    private void action() {
+    private int action() {
         // 触发取消编辑的事件，不会调用tableModel的setValue方法。
         //MyButtonEditor.this.fireEditingCanceled();
-        Buyer user = getObject(cartTable.getSelectedRow());
-        System.out.println("修改"+user.toString());
-        userService.update(user);
-        JOptionPane.showMessageDialog(null, "修改成功");
-        // 这里可以做其它操作。
-        // 可以将table传入，通过getSelectedRow,getSelectColumn方法获取到当前选择的行和列及其它操作等。
+        int rowb = buyTable.getSelectedRow();
+        Stock stock = getObject(rowb);
+        System.out.println("增加数量" + stock.toString());
+        DefaultTableModel dtm = (DefaultTableModel) cartTable.getModel();
+        DefaultTableModel dtb = (DefaultTableModel) buyTable.getModel();
 
-    }
+        //减少数量
 
-    public Buyer getObject(int row) {
-        String[] val = new String[cartTable.getColumnCount()];
-        for (int i = 0; i < cartTable.getColumnCount(); i++) {
-            val[i] = (String) cartTable.getValueAt(row, i);
+        for (int i = 0; i < cartTable.getRowCount(); i++) {
+            String aa = (String) cartTable.getValueAt(i, 1);
+            if (stock.getName().equals(aa)) {
+                if(Integer.valueOf((String) cartTable.getValueAt(i, 2))<1){
+                    JOptionPane.showMessageDialog(null, "库存不足");
+                }else{
+                    cartTable.setValueAt(String.valueOf(Integer.valueOf((String)cartTable.getValueAt(i, 2)) -1), i, 2);
+                    buyTable.setValueAt(String.valueOf(stock.getStock() +1), rowb, 1);
+                    dtb.fireTableStructureChanged();
+                    buyPanel.sin();
+                }
+
+                break;
+            }
         }
-        Buyer user = new Buyer(val[0], val[1], val[2], Integer.valueOf(val[3]), val[4], val[5], val[6]);
-        return user;
+        return 1;
     }
 
+    public Stock getObject(int row) {
+        int a=row;
+        Stock stock = new Stock(null, (String) buyTable.getValueAt(row, 0), Integer.valueOf((String) buyTable.getValueAt(row, 1)),(String) buyTable.getValueAt(row, 2));
+        return stock;
+    }
     public void settable(JTable table) {
         this.cartTable = table;
     }
     public void setPanel(JPanel panel) {
         this.panel_11 = panel;
+    }
+    public void setbtable(JTable table) {
+        this.buyTable = table;
     }
 }

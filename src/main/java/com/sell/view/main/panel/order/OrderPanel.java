@@ -189,6 +189,12 @@ public class OrderPanel {
         cartTable.getColumnModel().getColumn(n+1).setCellRenderer(orderDeleteRender);
         cartTable.setRowSelectionAllowed(false);// 禁止表格的选择功能。不然在点击按钮时表格的整行都会被选中。也可以通过其它方式来实现。
     }
+    public void sin(){
+        cartTable.getColumnModel().getColumn(3).setCellEditor(orderUpdateEditor);
+        cartTable.getColumnModel().getColumn(3).setCellRenderer(orderUpdateRender);
+        cartTable.getColumnModel().getColumn(3+1).setCellEditor(orderDeleteEditor);
+        cartTable.getColumnModel().getColumn(3+1).setCellRenderer(orderDeleteRender);
+    }
     public void querypanel(){
 
         jb_add = new JButton("查询");

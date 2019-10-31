@@ -52,7 +52,7 @@ public class BuyUpdateRender implements TableCellRenderer
                                                    int column)
     {
         // 只为按钮赋值即可。也可以作其它操作，如绘背景等。
-        this.button.setText("修改");
+        this.button.setText("增加");
 
         return this.panel;
     }

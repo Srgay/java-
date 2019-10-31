@@ -22,6 +22,7 @@ public class StockDeleteEditor extends DefaultCellEditor implements ActionListen
     private StockService stockService;
     @Autowired
     private StockPanel stockPanel;
+
     private JPanel panel;
 
     private JButton button;
@@ -101,6 +102,8 @@ public class StockDeleteEditor extends DefaultCellEditor implements ActionListen
             DefaultTableModel dtm = (DefaultTableModel) cartTable.getModel();
             dtm.removeRow(cartTable.getSelectedRow());
             dtm.fireTableRowsDeleted(0,cartTable.getRowCount());
+            dtm.fireTableStructureChanged();
+            stockPanel.sin();
         }
 
     }
@@ -110,7 +113,7 @@ public class StockDeleteEditor extends DefaultCellEditor implements ActionListen
         for (int i = 0; i < cartTable.getColumnCount(); i++) {
             val[i] = (String) cartTable.getValueAt(row, i);
         }
-        Stock stock = new Stock(val[0], val[1], Integer.valueOf(val[2]));
+        Stock stock = new Stock(val[0], val[1], Integer.valueOf(val[2]),val[3]);
         return stock;
     }
     public void settable(JTable table){

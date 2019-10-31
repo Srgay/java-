@@ -54,7 +54,7 @@ public class AddStockPanel {
     public void querypanel(){
 
         jb_add = new JButton("增加");
-        jb_add.setBounds(270+102, 25+50, 66, 21);
+        jb_add.setBounds(360+102, 25+50, 66, 21);
         panel_11.add(jb_add);
 
         textField = new JTextField();
@@ -81,6 +81,14 @@ public class AddStockPanel {
         lblNewLabel2.setBounds(180+112, 50, 66, 21);
         panel_11.add(lblNewLabel2);
 
+        textField_3 = new JTextField();
+        textField_3.setColumns(10);
+        textField_3.setBounds(270+112, 25+50, 66, 21);
+        panel_11.add(textField_3);
+        JLabel lblNewLabel3 = new JLabel("price");
+        lblNewLabel3.setBounds(270+112, 50, 66, 21);
+        panel_11.add(lblNewLabel3);
+
         jb_add.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String[] r=new String[5];
@@ -101,7 +109,12 @@ public class AddStockPanel {
                 }else{
                     r[1]=null;
                 }
-                Stock stock=new Stock(r[0],r[1],count);
+                if(!textField_3.getText().trim().isEmpty()){
+                    r[3]= textField_3.getText().trim();
+                }else{
+                    r[3]=null;
+                }
+                Stock stock=new Stock(r[0],r[1],count,r[3]);
                 if(stockService.addStock(stock)==1){
                     JOptionPane.showMessageDialog(null, "增加成功");
                     System.out.println("增加成功");

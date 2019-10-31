@@ -65,7 +65,7 @@ public class BuyDeleteEditor extends DefaultCellEditor implements ActionListener
     @Override
     public Component getTableCellEditorComponent(final JTable table, Object value, boolean isSelected, int row, int column) {
         // 只为按钮赋值即可。也可以作其它操作。
-        this.button.setText("删除");
+        this.button.setText("减少");
         // 为按钮添加事件。这里只能添加ActionListner事件，Mouse事件无效。
 
         return this.panel;
@@ -101,21 +101,22 @@ public class BuyDeleteEditor extends DefaultCellEditor implements ActionListener
             String aa = (String) cartTable.getValueAt(i, 1);
             if (stock.getName().equals(aa)) {
                 cartTable.setValueAt(String.valueOf(Integer.valueOf((String)cartTable.getValueAt(i, 2)) + 1), i, 2);
-                buyTable.setValueAt(stock.getStock() - 1, rowb, 1);
+                buyTable.setValueAt(String.valueOf(stock.getStock() - 1), rowb, 1);
                 dtm.fireTableRowsUpdated(0, cartTable.getRowCount());
             }
         }
         if(stock.getStock()==1){
             dtb.removeRow(buyTable.getSelectedRow());
-            dtb.fireTableRowsDeleted(0,buyTable.getRowCount());
-
+            //dtb.fireTableRowsUpdated(buyTable.getSelectedRow(),buyTable.getSelectedRow());
+            dtb.fireTableStructureChanged();
+            buyPanel.sin();
         }
         return 1;
     }
 
     public Stock getObject(int row) {
         int a=row;
-        Stock stock = new Stock(null, (String) buyTable.getValueAt(row, 0), (Integer) buyTable.getValueAt(row, 1));
+        Stock stock = new Stock(null, (String) buyTable.getValueAt(row, 0), Integer.valueOf((String) buyTable.getValueAt(row, 1)),(String) buyTable.getValueAt(row, 2));
         return stock;
     }
 

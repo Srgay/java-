@@ -217,6 +217,12 @@ public class UserPanel {
         cartTable.getColumnModel().getColumn(n+1).setCellRenderer(userDeleteRender);
         cartTable.setRowSelectionAllowed(false);// 禁止表格的选择功能。不然在点击按钮时表格的整行都会被选中。也可以通过其它方式来实现。
     }
+    public void sin(){
+        cartTable.getColumnModel().getColumn(7).setCellEditor(userUpdateEditor);
+        cartTable.getColumnModel().getColumn(7).setCellRenderer(userUpdateRender);
+        cartTable.getColumnModel().getColumn(7+1).setCellEditor(userDeleteEditor);
+        cartTable.getColumnModel().getColumn(7+1).setCellRenderer(userDeleteRender);
+    }
     public void querypanel(){
 
         jb_add = new JButton("查询");

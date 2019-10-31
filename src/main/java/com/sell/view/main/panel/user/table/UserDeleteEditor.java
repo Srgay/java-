@@ -100,6 +100,8 @@ public class UserDeleteEditor extends DefaultCellEditor implements ActionListene
             DefaultTableModel dtm = (DefaultTableModel) cartTable.getModel();
             dtm.removeRow(cartTable.getSelectedRow());
             dtm.fireTableRowsDeleted(0,cartTable.getRowCount());
+            dtm.fireTableStructureChanged();
+            userPanel.sin();
         }
 
     }

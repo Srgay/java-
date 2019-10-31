@@ -28,6 +28,7 @@ public class SpringProject2 implements CommandLineRunner {
         try {
             UIManager.put("ToolBar.isPaintPlainBackground", Boolean.TRUE);
             UIManager.put("RootPane.setupButtonVisible", false);
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.osLookAndFeelDecorated;
             org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
 

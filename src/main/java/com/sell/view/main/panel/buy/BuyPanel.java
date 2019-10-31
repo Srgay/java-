@@ -20,7 +20,7 @@ import java.util.Vector;
 public class BuyPanel {
 
     private JTable cartTable, buyTable;
-    private JButton jb_add;
+    private JButton jb_add,sett_add;
     private JTextField textField, textField_1, textField_2, textField_3, textField_4, textField_5;
     private JPanel panel_11;
     @Autowired
@@ -58,6 +58,7 @@ public class BuyPanel {
         initbtable();
         //查询子模块
         querypanel();
+        Settpanel();
 
 
         return panel_11;
@@ -72,18 +73,20 @@ public class BuyPanel {
         for (int i = 0; i < m; i++) {
             String[] arr1 = new ArrayList<String>(otov.tov(l.get(i)).values()).toArray(new String[0]);
             res[i] = java.util.Arrays.copyOf(arr1, arr1.length + 1);
-            res[i][0] = arr1[1];
-            res[i][1] = arr1[0];
-            res[i][2] = arr1[2];
+            res[i][0]=arr1[2];
+            res[i][1]=arr1[1];
+            res[i][2]=arr1[3];
+            res[i][3]=arr1[0];
 
             res[i][arr1.length] = "0";
         }
 
         String[] arr1 = new ArrayList<String>(otov.tov(l.get(0)).keySet()).toArray(new String[0]);
         res1 = java.util.Arrays.copyOf(arr1, arr1.length + 1);
-        res1[0] = arr1[1];
-        res1[1] = arr1[0];
-        res1[2] = arr1[2];
+        res1[0] = arr1[2];
+        res1[1] = arr1[1];
+        res1[2] = arr1[0];
+        res1[2] = arr1[3];
         res1[arr1.length] = "0";
 
         cartTable.setModel(new DefaultTableModel(res, res1) {
@@ -100,7 +103,7 @@ public class BuyPanel {
             @Override
             public boolean isCellEditable(int row, int column) {
                 // 带有按钮列的功能这里必须要返回true不然按钮点击时不会触发编辑效果，也就不会触发事件。
-                if (column == 3) {
+                if (column == 4) {
                     return true;
                 } else {
                     return false;
@@ -112,6 +115,8 @@ public class BuyPanel {
         buyAddEditor.setbtable(buyTable);
         buyDeleteEditor.settable(cartTable);
         buyDeleteEditor.setbtable(buyTable);
+        buyUpdateEditor.settable(cartTable);
+        buyUpdateEditor.setbtable(buyTable);
         cartTable.getColumnModel().getColumn(n).setCellEditor(buyAddEditor);
         cartTable.getColumnModel().getColumn(n).setCellRenderer(buyAddRender);
         cartTable.setRowSelectionAllowed(false);// 禁止表格的选择功能。不然在点击按钮时表格的整行都会被选中。也可以通过其它方式来实现。
@@ -129,24 +134,26 @@ public class BuyPanel {
         } else {
             r[0] = null;
         }
-        Stock stock = new Stock(null, r[0], null);
+        Stock stock = new Stock(null, r[0], null,null);
         List l = stockService.query(stock);
         int m = l.size(), n = otov.tov(l.get(0)).size();
         res = new String[m][n];
         for (int i = 0; i < m; i++) {
             String[] arr1 = new ArrayList<String>(otov.tov(l.get(i)).values()).toArray(new String[0]);
             res[i] = java.util.Arrays.copyOf(arr1, arr1.length + 1);
-            res[i][0] = arr1[1];
-            res[i][1] = arr1[0];
-            res[i][2] = arr1[2];
+            res[i][0]=arr1[2];
+            res[i][1]=arr1[1];
+            res[i][2]=arr1[3];
+            res[i][3]=arr1[0];
             res[i][arr1.length] = "0";
         }
 
         String[] arr1 = new ArrayList<String>(otov.tov(l.get(0)).keySet()).toArray(new String[0]);
         res1 = java.util.Arrays.copyOf(arr1, arr1.length + 1);
-        res1[0] = arr1[1];
-        res1[1] = arr1[0];
-        res1[2] = arr1[2];
+        res1[0] = arr1[2];
+        res1[1] = arr1[1];
+        res1[2] = arr1[0];
+        res1[2] = arr1[3];
         res1[arr1.length] = "0";
 
         cartTable.setModel(new DefaultTableModel(res, res1) {
@@ -184,7 +191,7 @@ public class BuyPanel {
             @Override
             public boolean isCellEditable(int row, int column) {
                 // 带有按钮列的功能这里必须要返回true不然按钮点击时不会触发编辑效果，也就不会触发事件。
-                if (column == 2 || column == 3) {
+                if (column == 2 || column == 3 ) {
                     return true;
                 } else {
                     return false;
@@ -200,75 +207,11 @@ public class BuyPanel {
         panel_11.add(new JScrollPane(buyTable)).setBounds(524, 100, 500, 300);
     }
 
-    public void fillbtable() {
-        String[] res1;
-        String[][] res;
-        String[] r = new String[5];
-        Integer f = 0;
-        Integer count = 0;
-        try {
-            count = Integer.valueOf(textField_2.getText().trim());
-        } catch (Exception e) {
-            count = null;
-        }
-        if (!textField.getText().trim().isEmpty()) {
-            r[0] = textField.getText().trim();
-        } else {
-            r[0] = null;
-        }
-        if (!textField_1.getText().trim().isEmpty()) {
-            r[1] = textField_1.getText().trim();
-        } else {
-            r[1] = null;
-        }
-        Stock stock = new Stock(r[0], r[1], count);
-        List l = stockService.query(stock);
-        int m = l.size(), n = otov.tov(l.get(0)).size();
-        res = new String[m][n];
-        for (int i = 0; i < m; i++) {
-            String[] arr1 = new ArrayList<String>(otov.tov(l.get(i)).values()).toArray(new String[0]);
-            res[i] = java.util.Arrays.copyOf(arr1, arr1.length + 2);
-            res[i][0] = arr1[1];
-            res[i][1] = arr1[0];
-            res[i][2] = arr1[2];
-            res[i][arr1.length] = "0";
-            res[i][arr1.length + 1] = "0";
-        }
-
-        String[] arr1 = new ArrayList<String>(otov.tov(l.get(0)).keySet()).toArray(new String[0]);
-        res1 = java.util.Arrays.copyOf(arr1, arr1.length + 2);
-        res1[0] = arr1[1];
-        res1[1] = arr1[0];
-        res1[2] = arr1[2];
-        res1[arr1.length] = "0";
-        res1[arr1.length + 1] = "0";
-
-        cartTable.setModel(new DefaultTableModel(res, res1) {
-
-
-            @Override
-            public void setValueAt(Object aValue, int row, int column) {
-                System.out.println(aValue + "  setValueAt");
-                Vector<Object> rowVector = (Vector) this.dataVector.elementAt(row);
-                rowVector.setElementAt(aValue, column);
-                this.fireTableCellUpdated(row, column);
-            }
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                // 带有按钮列的功能这里必须要返回true不然按钮点击时不会触发编辑效果，也就不会触发事件。
-                if (column == this.getRowCount() || column == this.getRowCount() - 1) {
-                    return true;
-                } else {
-                    return true;
-                }
-            }
-        });
+    public void sin() {
         buyTable.getColumnModel().getColumn(2).setCellEditor(buyUpdateEditor);
         buyTable.getColumnModel().getColumn(2).setCellRenderer(buyUpdateRender);
         buyTable.getColumnModel().getColumn(3).setCellEditor(buyDeleteEditor);
         buyTable.getColumnModel().getColumn(3).setCellRenderer(buyDeleteRender);
-        buyTable.setRowSelectionAllowed(false);// 禁止表格的选择功能。不然在点击按钮时表格的整行都会被选中。也可以通过其它方式来实现。*/
     }
 
     public void querypanel() {
@@ -300,6 +243,26 @@ public class BuyPanel {
             }
         });
         panel_11.add(jb_add);
+    }
+
+    public void Settpanel() {
+
+        sett_add = new JButton("结算");
+        sett_add.setBounds(821, 450, 66, 21);
+        panel_11.add(sett_add);
+
+        sett_add.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                DefaultTableModel dtm = (DefaultTableModel) buyTable.getModel();
+                //清空之前显示
+                dtm.setRowCount(0);
+                try {
+                    System.out.println("重绘");
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(panel_11, "未查询到", "警告", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
     }
 }
 

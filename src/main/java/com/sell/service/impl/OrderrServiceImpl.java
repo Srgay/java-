@@ -1,7 +1,6 @@
 package com.sell.service.impl;
 
 import com.sell.dao.OrderrMapper;
-import com.sell.entity.Buyer;
 import com.sell.entity.Orderr;
 import com.sell.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class OrderrServiceImpl implements OrderService {
     public int update(Orderr order) {
         int i=0;
         try {
-            Example example = new Example(Buyer.class);
+            Example example = new Example(Orderr.class);
             Example.Criteria criteria = example.createCriteria();
             criteria.andEqualTo("id", order.getId());
             i=orderrMapper.updateByExampleSelective(order, example);

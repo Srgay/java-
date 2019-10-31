@@ -1,7 +1,6 @@
 package com.sell.service.impl;
 
 import com.sell.dao.StockMapper;
-import com.sell.entity.Buyer;
 import com.sell.entity.Stock;
 import com.sell.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +36,10 @@ public class StockServiceImpl implements StockService {
     public int update(Stock stock) {
         int i=0;
         try {
-            Example example = new Example(Buyer.class);
+            Example example = new Example(Stock.class);
             Example.Criteria criteria = example.createCriteria();
             criteria.andEqualTo("id", stock.getId());
+            i=stockMapper.updateByPrimaryKey(stock);
             i=stockMapper.updateByExampleSelective(stock, example);
             return i;
         }catch (Exception e){
