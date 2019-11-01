@@ -3,6 +3,7 @@ package com.sell.view.main.panel.buy.table;
 import com.sell.entity.Stock;
 import com.sell.service.UserService;
 import com.sell.view.main.panel.buy.BuyPanel;
+import com.sell.view.main.panel.buy.util.SettUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.swing.*;
@@ -18,6 +19,8 @@ public class BuyDeleteEditor extends DefaultCellEditor implements ActionListener
      */
     private static final long serialVersionUID = -6546334664166791132L;
 
+    @Autowired
+    private SettUtil settUtil;
     @Autowired
     private UserService userService;
     @Autowired
@@ -103,6 +106,7 @@ public class BuyDeleteEditor extends DefaultCellEditor implements ActionListener
                 cartTable.setValueAt(String.valueOf(Integer.valueOf((String)cartTable.getValueAt(i, 2)) + 1), i, 2);
                 buyTable.setValueAt(String.valueOf(stock.getStock() - 1), rowb, 1);
                 dtm.fireTableRowsUpdated(0, cartTable.getRowCount());
+                settUtil.updateTotal();
             }
         }
         if(stock.getStock()==1){

@@ -29,7 +29,8 @@ public class OrderrServiceImpl implements OrderService {
 
     @Override
     public int addStock(Orderr order) {
-        return 0;
+        int f=orderrMapper.insert(order);
+        return f;
     }
 
     @Override

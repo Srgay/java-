@@ -1,7 +1,9 @@
 package com.sell.view.main.panel.buy;
 
+import com.sell.entity.Orderr;
 import com.sell.entity.Stock;
 import com.sell.service.BuyService;
+import com.sell.service.OrderService;
 import com.sell.service.StockService;
 import com.sell.util.otov;
 import com.sell.view.main.panel.buy.table.*;
@@ -21,7 +23,7 @@ import java.util.Vector;
 public class BuyPanel {
 
     private JTable cartTable, buyTable;
-    private JButton jb_add,sett_add;
+    private JButton jb_add, sett_add;
     private JTextField textField, textField_1, textField_2, textField_3, textField_4, textField_5;
     private JPanel panel_11;
     private JLabel sett;
@@ -29,6 +31,8 @@ public class BuyPanel {
     private BuyService buyService;
     @Autowired
     private StockService stockService;
+    @Autowired
+    private OrderService orderService;
     @Autowired
     private BuyAddEditor buyAddEditor;
     @Autowired
@@ -78,10 +82,10 @@ public class BuyPanel {
         for (int i = 0; i < m; i++) {
             String[] arr1 = new ArrayList<String>(otov.tov(l.get(i)).values()).toArray(new String[0]);
             res[i] = java.util.Arrays.copyOf(arr1, arr1.length + 1);
-            res[i][0]=arr1[2];
-            res[i][1]=arr1[1];
-            res[i][2]=arr1[3];
-            res[i][3]=arr1[0];
+            res[i][0] = arr1[2];
+            res[i][1] = arr1[1];
+            res[i][2] = arr1[3];
+            res[i][3] = arr1[0];
 
             res[i][arr1.length] = "";
         }
@@ -90,8 +94,8 @@ public class BuyPanel {
         res1 = java.util.Arrays.copyOf(arr1, arr1.length + 1);
         res1[0] = arr1[2];
         res1[1] = arr1[1];
-        res1[2] = arr1[0];
-        res1[3] = arr1[3];
+        res1[2] = arr1[3];
+        res1[3] = arr1[0];
         res1[arr1.length] = "";
 
         cartTable.setModel(new DefaultTableModel(res, res1) {
@@ -139,21 +143,21 @@ public class BuyPanel {
         } else {
             r[0] = "";
         }
-        Stock stock = new Stock(null, r[0], null,null);
+        Stock stock = new Stock(null, r[0], null, null);
         List l;
-        if (r[0].isEmpty()){
-            l=stockService.queryAll();
+        if (r[0].isEmpty()) {
+            l = stockService.queryAll();
         }
-        l= stockService.queryByName(r[0]);
+        l = stockService.queryByName(r[0]);
         int m = l.size(), n = otov.tov(l.get(0)).size();
         res = new String[m][n];
         for (int i = 0; i < m; i++) {
             String[] arr1 = new ArrayList<String>(otov.tov(l.get(i)).values()).toArray(new String[0]);
             res[i] = java.util.Arrays.copyOf(arr1, arr1.length + 1);
-            res[i][0]=arr1[2];
-            res[i][1]=arr1[1];
-            res[i][2]=arr1[3];
-            res[i][3]=arr1[0];
+            res[i][0] = arr1[2];
+            res[i][1] = arr1[1];
+            res[i][2] = arr1[3];
+            res[i][3] = arr1[0];
             res[i][arr1.length] = "0";
         }
 
@@ -200,7 +204,7 @@ public class BuyPanel {
             @Override
             public boolean isCellEditable(int row, int column) {
                 // 带有按钮列的功能这里必须要返回true不然按钮点击时不会触发编辑效果，也就不会触发事件。
-                if (column == 2 || column == 3 ) {
+                if (column == 2 || column == 3) {
                     return true;
                 } else {
                     return false;
@@ -234,7 +238,7 @@ public class BuyPanel {
         panel_11.add(textField);
         textField.setColumns(10);
         JLabel lblNewLabel = new JLabel(new ImageIcon("img/search.png"));
-        lblNewLabel.setBounds(0 + 40, 25+50, 20, 21);
+        lblNewLabel.setBounds(0 + 40, 25 + 50, 20, 21);
         panel_11.add(lblNewLabel);
 
 
@@ -272,14 +276,25 @@ public class BuyPanel {
 
         sett_add.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                DefaultTableModel dtm = (DefaultTableModel) buyTable.getModel();
-                //清空之前显示
-                dtm.setRowCount(0);
-                try {
-                    System.out.println("重绘");
-                } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(panel_11, "未查询到", "警告", JOptionPane.WARNING_MESSAGE);
+                if (Integer.valueOf(sett.getText().trim())>0) {
+                    Orderr order = settutil.addorder();
+                    order.setPrice(Integer.valueOf(sett.getText().trim()));
+
+                    DefaultTableModel dtm = (DefaultTableModel) buyTable.getModel();
+                    //清空之前显示
+                    dtm.setRowCount(0);
+                    try {
+                        if (orderService.addStock(order) == 1) {
+                            JOptionPane.showMessageDialog(null, "增加成功");
+                            System.out.println("增加成功");
+                        }
+                    } catch (Exception e1) {
+                        JOptionPane.showMessageDialog(panel_11, "增加失败", "警告", JOptionPane.WARNING_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(panel_11, "未添加商品", "警告", JOptionPane.WARNING_MESSAGE);
                 }
+
             }
         });
     }
