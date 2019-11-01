@@ -115,10 +115,16 @@ public class AddStockPanel {
                     r[3]=null;
                 }
                 Stock stock=new Stock(r[0],r[1],count,r[3]);
-                if(stockService.addStock(stock)==1){
-                    JOptionPane.showMessageDialog(null, "增加成功");
-                    System.out.println("增加成功");
+                try {
+                    if(stockService.addStock(stock)==1){
+                        JOptionPane.showMessageDialog(null, "增加成功");
+                        System.out.println("增加成功");
+                    }
+                }catch (org.springframework.dao.DuplicateKeyException e1){
+                    JOptionPane.showMessageDialog(null, "id已存在", "warning", JOptionPane.WARNING_MESSAGE);
                 }
+
+
 
             }
         });

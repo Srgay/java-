@@ -12,6 +12,17 @@ import java.util.List;
 public class StockServiceImpl implements StockService {
     @Autowired
     private StockMapper stockMapper;
+
+    @Override
+    public List<Stock> queryByName(String name) {
+        List<Stock> stockslist = null;
+        Example example = new Example(Stock.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andLike("name", "%" + name + "%");
+        stockslist = stockMapper.selectByExample(example);
+        return stockslist;
+    }
+
     @Override
     public List<Stock> query(Stock stock) {
         List<Stock> stockslist = null;
@@ -39,7 +50,6 @@ public class StockServiceImpl implements StockService {
             Example example = new Example(Stock.class);
             Example.Criteria criteria = example.createCriteria();
             criteria.andEqualTo("id", stock.getId());
-            i=stockMapper.updateByPrimaryKey(stock);
             i=stockMapper.updateByExampleSelective(stock, example);
             return i;
         }catch (Exception e){

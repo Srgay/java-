@@ -3,6 +3,7 @@ package com.sell.view.main.panel.buy.table;
 import com.sell.entity.Stock;
 import com.sell.service.OrderService;
 import com.sell.view.main.panel.buy.BuyPanel;
+import com.sell.view.main.panel.buy.util.SettUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.swing.*;
@@ -23,6 +24,9 @@ public class BuyAddEditor extends DefaultCellEditor implements ActionListener {
     private OrderService orderService;
     @Autowired
     private BuyPanel buyPanel;
+    @Autowired
+    private SettUtil settUtil;
+
     private JPanel panel;
 
     private JButton button;
@@ -114,6 +118,7 @@ public class BuyAddEditor extends DefaultCellEditor implements ActionListener {
                     buyTable.setValueAt(String.valueOf(Integer.valueOf((String)buyTable.getValueAt(i, 1)) + 1), i, 1);
                     cartTable.setValueAt(String.valueOf(st-1),row,2);
                     //dtm.fireTableRowsUpdated(0,cartTable.getRowCount());
+                    settUtil.updateTotal();
                     return 1;
                 }
             }
@@ -121,6 +126,7 @@ public class BuyAddEditor extends DefaultCellEditor implements ActionListener {
             dtm.fireTableRowsUpdated(0,cartTable.getRowCount());
             dtb.addRow(re);
             dtb.fireTableRowsDeleted(0, buyTable.getRowCount());
+            settUtil.updateTotal();
         }
         return 1;
     }

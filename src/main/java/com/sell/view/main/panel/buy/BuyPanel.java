@@ -5,6 +5,7 @@ import com.sell.service.BuyService;
 import com.sell.service.StockService;
 import com.sell.util.otov;
 import com.sell.view.main.panel.buy.table.*;
+import com.sell.view.main.panel.buy.util.SettUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +24,7 @@ public class BuyPanel {
     private JButton jb_add,sett_add;
     private JTextField textField, textField_1, textField_2, textField_3, textField_4, textField_5;
     private JPanel panel_11;
+    private JLabel sett;
     @Autowired
     private BuyService buyService;
     @Autowired
@@ -39,6 +41,8 @@ public class BuyPanel {
     private BuyUpdateEditor buyUpdateEditor;
     @Autowired
     private BuyUpdateRender buyUpdateRender;
+    @Autowired
+    private SettUtil settutil;
 
     public JPanel getPanel() {
         panel_11 = new JPanel();
@@ -58,6 +62,7 @@ public class BuyPanel {
         initbtable();
         //查询子模块
         querypanel();
+        //结算子模块
         Settpanel();
 
 
@@ -78,7 +83,7 @@ public class BuyPanel {
             res[i][2]=arr1[3];
             res[i][3]=arr1[0];
 
-            res[i][arr1.length] = "0";
+            res[i][arr1.length] = "";
         }
 
         String[] arr1 = new ArrayList<String>(otov.tov(l.get(0)).keySet()).toArray(new String[0]);
@@ -86,8 +91,8 @@ public class BuyPanel {
         res1[0] = arr1[2];
         res1[1] = arr1[1];
         res1[2] = arr1[0];
-        res1[2] = arr1[3];
-        res1[arr1.length] = "0";
+        res1[3] = arr1[3];
+        res1[arr1.length] = "";
 
         cartTable.setModel(new DefaultTableModel(res, res1) {
 
@@ -132,10 +137,14 @@ public class BuyPanel {
         if (!textField.getText().trim().isEmpty()) {
             r[0] = textField.getText().trim();
         } else {
-            r[0] = null;
+            r[0] = "";
         }
         Stock stock = new Stock(null, r[0], null,null);
-        List l = stockService.query(stock);
+        List l;
+        if (r[0].isEmpty()){
+            l=stockService.queryAll();
+        }
+        l= stockService.queryByName(r[0]);
         int m = l.size(), n = otov.tov(l.get(0)).size();
         res = new String[m][n];
         for (int i = 0; i < m; i++) {
@@ -221,11 +230,11 @@ public class BuyPanel {
         panel_11.add(jb_add);
 
         textField = new JTextField();
-        textField.setBounds(0 + 112, 25 + 50, 66, 21);
+        textField.setBounds(0 + 60, 25 + 50, 266, 21);
         panel_11.add(textField);
         textField.setColumns(10);
-        JLabel lblNewLabel = new JLabel("name");
-        lblNewLabel.setBounds(0 + 112, 50, 66, 21);
+        JLabel lblNewLabel = new JLabel(new ImageIcon("img/search.png"));
+        lblNewLabel.setBounds(0 + 40, 25+50, 20, 21);
         panel_11.add(lblNewLabel);
 
 
@@ -246,10 +255,20 @@ public class BuyPanel {
     }
 
     public void Settpanel() {
+        settutil.setBuyTable(buyTable);
+        settutil.setCartTable(cartTable);
 
         sett_add = new JButton("结算");
         sett_add.setBounds(821, 450, 66, 21);
         panel_11.add(sett_add);
+
+        sett = new JLabel("0");
+        sett.setBounds(821 - 60, 450, 66, 21);
+        panel_11.add(sett);
+        JLabel lblNewLabel = new JLabel("¥");
+        lblNewLabel.setBounds(821 - 90, 450, 20, 21);
+        panel_11.add(lblNewLabel);
+        settutil.setSett(sett);
 
         sett_add.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

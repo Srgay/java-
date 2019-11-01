@@ -2,7 +2,7 @@ package com.sell;
 
 
 import com.sell.service.UserService;
-import com.sell.view.Login;
+import com.sell.view.LogOnFrm;
 import com.sell.view.MainFrame;
 import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import javax.swing.*;
 @MapperScan(value = "com.sell.dao")
 public class SpringProject2 implements CommandLineRunner {
     @Autowired
-    private Login login;
+    private LogOnFrm logOnFrm;
     @Autowired
     private UserService userService;
     @Autowired
@@ -36,13 +36,12 @@ public class SpringProject2 implements CommandLineRunner {
             //TODO exception
         }
 
-       /* login.setSize(300, 300);
-        login.setLocationRelativeTo(null);
-        login.setVisible(true);*/
         mainFrame.setTitle("鲜花销售管理信息系统");
         mainFrame.setSize(1021, 600);
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setVisible(true);
+        /*logOnFrm.setLocationRelativeTo(null);
+        logOnFrm.setVisible(true);*/
 
 
     }
