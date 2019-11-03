@@ -131,12 +131,12 @@ public class Regist extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton) {
-           /* try {
+           try {
                 submitButton_actionPerformed();
             }catch (Exception e1){
                 JOptionPane.showMessageDialog(this, "请完善登录信息", "warning", JOptionPane.WARNING_MESSAGE);
-            }*/
-            submitButton_actionPerformed();
+            }
+           /* submitButton_actionPerformed();*/
 
         } else if (e.getSource() == resetButton) {
             resetButton_actionPerformed();

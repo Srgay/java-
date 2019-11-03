@@ -8,6 +8,7 @@ import com.sell.view.main.panel.stock.AddStockPanel;
 import com.sell.view.main.panel.stock.StockPanel;
 import com.sell.view.main.panel.user.UserPanel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -43,8 +44,12 @@ public class MainFrame extends JFrame implements ActionListener {
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 int n = JOptionPane.showConfirmDialog(null, "Are you sure closing this software?", "warning", JOptionPane.YES_NO_OPTION);
-                if (n == JOptionPane.YES_OPTION)
+                if (n == JOptionPane.YES_OPTION) {
                     System.exit(0);
+                } else {
+                    System.out.println("s");
+                }
+
             }
         });
         JMenuBar menuBar = new JMenuBar();
@@ -53,7 +58,7 @@ public class MainFrame extends JFrame implements ActionListener {
         JMenu mnNewMenu = new JMenu("用户管理");
         menuBar.add(mnNewMenu);
 
-        menuItem_11 = new JMenuItem("添加用户");
+        menuItem_11 = new JMenuItem("用户管理");
         mnNewMenu.add(menuItem_11);
         menuItem_11.addActionListener(this);
 
@@ -66,10 +71,10 @@ public class MainFrame extends JFrame implements ActionListener {
         menuItem_21.addActionListener(this);
 
 
-        JMenu menu = new JMenu("进货管理");
+        JMenu menu = new JMenu("库存管理");
         menuBar.add(menu);
 
-        menuItem_31 = new JMenuItem("进货管理1");
+        menuItem_31 = new JMenuItem("库存管理");
         menu.add(menuItem_31);
         menuItem_31.addActionListener(this);
 
@@ -96,12 +101,16 @@ public class MainFrame extends JFrame implements ActionListener {
         panel.setLayout(new CardLayout(0, 0));
 
         //背景图片
-        JLabel lblNewLabel = new JLabel(new ImageIcon("img/a2.png"));
+        JLabel lblNewLabel = new JLabel(new ImageIcon("img/icon.png"));
         lblNewLabel.setText("");
         lblNewLabel.setBounds(0, 0, 1024, 600);
         getContentPane().add(lblNewLabel);
     }
 
+    @Bean
+    public JPanel mainPanel() {
+        return panel;
+    }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menuItem_11) {

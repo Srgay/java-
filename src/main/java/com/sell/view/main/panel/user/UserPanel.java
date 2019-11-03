@@ -45,11 +45,16 @@ public class UserPanel {
         panel_11.setLayout(null);
         panel_11.setOpaque(true);
 
-        JLabel lblNewLabel = new JLabel("1");
+        JLabel lblNewLabel = new JLabel("");
         lblNewLabel.setBounds(0, 0, 66, 21);
         panel_11.add(lblNewLabel);
         //表格显示子模块
-        initjtable();
+        try {
+            initjtable();
+        }catch (java.lang.IndexOutOfBoundsException e1){
+            JOptionPane.showMessageDialog(panel_11, "未查询到", "警告",JOptionPane.WARNING_MESSAGE);
+
+        }
 
         //查询子模块
         querypanel();

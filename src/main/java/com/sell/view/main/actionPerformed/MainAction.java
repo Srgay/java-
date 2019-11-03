@@ -9,7 +9,7 @@ public class MainAction {
         System.out.println("用户面板添加");
         System.out.println(panelto);
         panel.removeAll();
-        //panelto.setOpaque(false);
+        panelto.setOpaque(false);
         panel.add(panelto);
         panel.validate();
         panel.repaint();

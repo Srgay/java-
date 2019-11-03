@@ -46,11 +46,16 @@ public class OrderPanel {
         panel_11.setLayout(null);
         panel_11.setOpaque(true);
 
-        JLabel lblNewLabel = new JLabel("4");
+        JLabel lblNewLabel = new JLabel("");
         lblNewLabel.setBounds(0, 0, 66, 21);
         panel_11.add(lblNewLabel);
         //表格显示子模块
-        initjtable();
+        try {
+            initjtable();
+        }catch (java.lang.IndexOutOfBoundsException e1){
+            JOptionPane.showMessageDialog(panel_11, "未查询到任何订单", "警告",JOptionPane.WARNING_MESSAGE);
+
+        }
 
         //查询子模块
         querypanel();
@@ -63,7 +68,13 @@ public class OrderPanel {
         String[] res1;
         String[][] res;
         List l = orderService.queryAll();
-        int m = l.size(), n = otov.tov(l.get(0)).size();
+        int m,n;
+        try {
+            m = l.size();
+            n = otov.tov(l.get(0)).size();
+        }catch (java.lang.IndexOutOfBoundsException e1){
+            m=0;n=0;
+        }
         res = new String[m][n];
         for (int i = 0; i < m; i++) {
             String[] arr1 = new ArrayList<String>(otov.tov(l.get(i)).values()).toArray(new String[0]);

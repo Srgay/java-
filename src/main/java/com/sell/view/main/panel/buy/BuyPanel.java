@@ -8,6 +8,7 @@ import com.sell.service.StockService;
 import com.sell.util.otov;
 import com.sell.view.main.panel.buy.table.*;
 import com.sell.view.main.panel.buy.util.SettUtil;
+import com.sell.view.main.panel.init.InitPanel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -47,6 +48,8 @@ public class BuyPanel {
     private BuyUpdateRender buyUpdateRender;
     @Autowired
     private SettUtil settutil;
+    @Autowired
+    private InitPanel initPanel;
 
     public JPanel getPanel() {
         panel_11 = new JPanel();
@@ -58,17 +61,22 @@ public class BuyPanel {
         panel_11.setLayout(null);
         panel_11.setOpaque(true);
 
-        JLabel lblNewLabel = new JLabel("2");
+        JLabel lblNewLabel = new JLabel("");
         lblNewLabel.setBounds(0, 0, 66, 21);
         panel_11.add(lblNewLabel);
-        //表格显示子模块
-        initjtable();
-        initbtable();
         //查询子模块
         querypanel();
         //结算子模块
         Settpanel();
+        //表格显示子模块
+        try {
+            initjtable();
+            filljtable();
+        }catch (java.lang.IndexOutOfBoundsException e1){
+            JOptionPane.showMessageDialog(panel_11, "未查询到任何商品", "警告",JOptionPane.WARNING_MESSAGE);
 
+        }
+        initbtable();
 
         return panel_11;
     }
@@ -165,8 +173,8 @@ public class BuyPanel {
         res1 = java.util.Arrays.copyOf(arr1, arr1.length + 1);
         res1[0] = arr1[2];
         res1[1] = arr1[1];
-        res1[2] = arr1[0];
         res1[2] = arr1[3];
+        res1[3] = arr1[0];
         res1[arr1.length] = "0";
 
         cartTable.setModel(new DefaultTableModel(res, res1) {
@@ -183,7 +191,7 @@ public class BuyPanel {
             @Override
             public boolean isCellEditable(int row, int column) {
                 // 带有按钮列的功能这里必须要返回true不然按钮点击时不会触发编辑效果，也就不会触发事件。
-                if (column == 3) {
+                if (column == 4) {
                     return true;
                 } else {
                     return false;
@@ -235,6 +243,7 @@ public class BuyPanel {
 
         textField = new JTextField();
         textField.setBounds(0 + 60, 25 + 50, 266, 21);
+        textField.setText(initPanel.getname());
         panel_11.add(textField);
         textField.setColumns(10);
         JLabel lblNewLabel = new JLabel(new ImageIcon("img/search.png"));
@@ -277,7 +286,12 @@ public class BuyPanel {
         sett_add.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (Integer.valueOf(sett.getText().trim())>0) {
-                    Orderr order = settutil.addorder();
+                    Orderr order = null;
+                    try {
+                        order = settutil.addorder();
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(panel_11, "结算失败", "警告", JOptionPane.WARNING_MESSAGE);
+                    }
                     order.setPrice(Integer.valueOf(sett.getText().trim()));
 
                     DefaultTableModel dtm = (DefaultTableModel) buyTable.getModel();
@@ -285,16 +299,17 @@ public class BuyPanel {
                     dtm.setRowCount(0);
                     try {
                         if (orderService.addStock(order) == 1) {
-                            JOptionPane.showMessageDialog(null, "增加成功");
+                            JOptionPane.showMessageDialog(null, "结算成功");
+                            sett.setText("0");
                             System.out.println("增加成功");
                         }
                     } catch (Exception e1) {
-                        JOptionPane.showMessageDialog(panel_11, "增加失败", "警告", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(panel_11, "结算失败", "警告", JOptionPane.WARNING_MESSAGE);
                     }
                 }else{
                     JOptionPane.showMessageDialog(panel_11, "未添加商品", "警告", JOptionPane.WARNING_MESSAGE);
                 }
-
+                sett_add.repaint(821, 0, 66, 21);
             }
         });
     }

@@ -40,7 +40,7 @@ public class AddStockPanel {
         panel_11.setLayout(null);
         panel_11.setOpaque(true);
 
-        JLabel lblNewLabel = new JLabel("3");
+        JLabel lblNewLabel = new JLabel("");
         lblNewLabel.setBounds(0, 0, 66, 21);
         panel_11.add(lblNewLabel);
 
@@ -122,6 +122,8 @@ public class AddStockPanel {
                     }
                 }catch (org.springframework.dao.DuplicateKeyException e1){
                     JOptionPane.showMessageDialog(null, "id已存在", "warning", JOptionPane.WARNING_MESSAGE);
+                }catch (org.springframework.dao.DataIntegrityViolationException e1){
+                    JOptionPane.showMessageDialog(null, "请完善信息", "warning", JOptionPane.WARNING_MESSAGE);
                 }
 
 

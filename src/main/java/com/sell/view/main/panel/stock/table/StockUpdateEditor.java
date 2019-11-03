@@ -96,6 +96,7 @@ public class StockUpdateEditor extends DefaultCellEditor implements ActionListen
         Stock stock= getObject(cartTable.getSelectedRow());
         System.out.println("修改"+stock.toString());
         int a=stockService.update(stock);
+        JOptionPane.showMessageDialog(null, "修改成功");
         // 这里可以做其它操作。
         // 可以将table传入，通过getSelectedRow,getSelectColumn方法获取到当前选择的行和列及其它操作等。
 

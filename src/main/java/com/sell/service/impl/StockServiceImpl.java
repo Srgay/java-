@@ -24,6 +24,11 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
+    public Stock queryOne(Stock stock) {
+        stock = stockMapper.selectOne(stock);
+        return stock;
+    }
+    @Override
     public List<Stock> query(Stock stock) {
         List<Stock> stockslist = null;
         stockslist = stockMapper.select(stock);
